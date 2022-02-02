@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.collect
 fun TodoTasksListScreen(
     modifier: Modifier = Modifier,
     navigator: DestinationsNavigator,
+    titleBar: @Composable ()-> Unit,
     viewModel: TodoTaskViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -36,20 +37,24 @@ fun TodoTasksListScreen(
         }
     }
     Scaffold(
-        modifier = modifier.padding(16.dp).fillMaxSize(),
-        scaffoldState = scaffoldState
-    ) {
-        FloatingActionButton(
-            onClick = {
+        modifier = modifier.fillMaxSize(),
+        scaffoldState = scaffoldState,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
 
+                }
+            ) {
+                Text(
+                    modifier = Modifier.padding(horizontal = 14.dp),
+                    text = "Add New Tasks Group",
+                    color = Color.White
+                )
             }
-        ) {
-            Text(
-                modifier = Modifier.padding(horizontal = 14.dp),
-                text = "Add New Group",
-                color = Color.White
-            )
-        }
+        },
+        topBar = titleBar
+    ) {
+
 
     }
 }

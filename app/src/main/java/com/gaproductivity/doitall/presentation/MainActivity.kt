@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,11 +16,14 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gaproductivity.doitall.presentation.components.DefaultNavAnimation
 import com.gaproductivity.doitall.presentation.screens.HomeScreen
 import com.gaproductivity.doitall.presentation.ui.theme.DoItAllTheme
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,17 +32,21 @@ val Context.preferenceStore: DataStore<Preferences> by preferencesDataStore(name
 
 @AndroidEntryPoint
 class MainActivity() : ComponentActivity() {
+
+    @OptIn(ExperimentalAnimationApi::class,
+        ExperimentalMaterialNavigationApi::class
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DestinationsNavHost(navGraph = NavGraphs.root)
+            DestinationsNavHost(navGraph = NavGraphs.root, engine = rememberAnimatedNavHostEngine())
         }
     }
 }
 
 
 @Composable
-@Destination(start = true)
+@Destination(start = true, style = DefaultNavAnimation::class)
 fun BaseContent(navigator: DestinationsNavigator) {
     val viewModel: MainViewModel = hiltViewModel()
     DoItAllTheme(darkTheme = viewModel.darkMode.value) {
@@ -45,9 +54,7 @@ fun BaseContent(navigator: DestinationsNavigator) {
         systemUiController.setStatusBarColor(
             color = MaterialTheme.colors.surface
         )
-        Surface(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        Scaffold{
             HomeScreen(navigator)
         }
     }

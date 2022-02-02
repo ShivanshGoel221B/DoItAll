@@ -11,15 +11,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.gaproductivity.core.domain.UiEvents
+import androidx.navigation.NavOptionsBuilder
 import com.gaproductivity.doitall.R
 import com.gaproductivity.doitall.presentation.components.PendingTasks
-import com.gaproductivity.doitall.presentation.components.SwitchModeButton
+import com.gaproductivity.doitall.presentation.components.TopBar
 import com.gaproductivity.doitall.presentation.destinations.TodoTasksScreenDestination
-import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
@@ -29,7 +27,6 @@ fun HomeScreen(
 ) {
     Column(
         modifier = Modifier
-            .padding(16.dp)
             .scrollable(
                 orientation = Orientation.Vertical,
                 state = rememberScrollableState(
@@ -44,26 +41,24 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
         ) {
-            SwitchModeButton()
+            TopBar()
         }
         PendingTasks()
         Spacer(modifier = Modifier.size(2.dp))
         Row(
             horizontalArrangement = Arrangement.End,
-            modifier = Modifier.padding(end = 4.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(end = 4.dp)
+                .fillMaxWidth()
         ) {
             Text(
                 text = "View All",
                 color = MaterialTheme.colors.primary,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp)
+                modifier = Modifier
+                    .padding(vertical = 2.dp, horizontal = 4.dp)
                     .clickable {
-                    navigator.navigate(direction = TodoTasksScreenDestination, builder = {
-                        this.anim {
-                            this.enter = R.anim.slide_from_right
-                            this.exit = R.anim.slide_from_right
-                        }
-                    })
+                    navigator.navigate(direction = TodoTasksScreenDestination)
                 }
             )
         }

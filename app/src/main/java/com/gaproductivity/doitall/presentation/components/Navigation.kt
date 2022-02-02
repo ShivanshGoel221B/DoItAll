@@ -8,13 +8,18 @@ import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksListScreen
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination
+@Destination(style = DefaultNavAnimation::class)
 @Composable
 fun TodoTasksScreen(
     navigator: DestinationsNavigator,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
-        TodoTasksListScreen(navigator = navigator)
+        TodoTasksListScreen(
+            navigator = navigator,
+            titleBar = {
+                TopBar(screenTitle = "Task Groups")
+            }
+        )
     }
 }
