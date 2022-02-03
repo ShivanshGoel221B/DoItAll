@@ -43,7 +43,7 @@ fun HomeScreen(
         ) {
             TopBar()
         }
-        PendingTasks()
+        PendingTasks(navigator = navigator)
         Spacer(modifier = Modifier.size(2.dp))
         Row(
             horizontalArrangement = Arrangement.End,

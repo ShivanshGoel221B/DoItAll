@@ -5,13 +5,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gaproductivity.todo_tasks.domain.use_cases.CreateTodoTaskUseCase
-import com.gaproductivity.todo_tasks.domain.use_cases.GetAllTodoTasksUseCase
-import com.gaproductivity.todo_tasks.domain.use_cases.GetTodoTaskUseCase
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.database.entity.ClassGroup
 import com.gaproductivity.database.entity.TodoTask
-import com.gaproductivity.todo_tasks.domain.use_cases.GetPendingTasksUseCase
+import com.gaproductivity.todo_tasks.domain.filter.TodoTaskFilter
+import com.gaproductivity.todo_tasks.domain.use_cases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -23,8 +21,8 @@ import javax.inject.Inject
 class TodoTaskViewModel @Inject constructor(
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
     private val getAllTodoTasksUseCase: GetAllTodoTasksUseCase,
-    private val getPendingTasksUseCase: GetPendingTasksUseCase,
-    private val getTodoTaskUseCase: GetTodoTaskUseCase
+    private val getTodoTaskUseCase: GetTodoTaskUseCase,
+    private val filterTodoTasksUseCase: FilterTodoTasksUseCase
 ): ViewModel() {
 
     private val _allTodoTasks: MutableState<List<TodoTask>> = mutableStateOf(emptyList())
@@ -43,7 +41,17 @@ class TodoTaskViewModel @Inject constructor(
 
 
     fun getPendingTodoTasks(allTodoTasks: List<TodoTask>): List<TodoTask> {
-        return getPendingTasksUseCase(allTodoTasks)
+        return filterTodoTasksUseCase(
+            allTodoTasks,
+            TodoTaskFilter.FilterByPending(true)
+        )
+    }
+
+    fun getTodoTasksByGroupId(groupId: Int): List<TodoTask> {
+        return filterTodoTasksUseCase(
+            allTodoTasks.value,
+            TodoTaskFilter.FilterByGroup(groupId)
+        )
     }
 
 }

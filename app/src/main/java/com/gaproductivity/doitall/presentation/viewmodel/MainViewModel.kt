@@ -9,19 +9,14 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gaproductivity.todo_tasks.domain.use_cases.GetAllTodoTasksUseCase
-import com.gaproductivity.todo_tasks.domain.use_cases.GetPendingTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getAllTodoTasksUseCase: GetAllTodoTasksUseCase,
-    private val getPendingTasksUseCase: GetPendingTasksUseCase,
     private val dataStore: DataStore<Preferences>
 ): ViewModel() {
 

@@ -21,11 +21,13 @@ import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.doitall.presentation.ui.theme.textColor
 import com.gaproductivity.doitall.presentation.ui.theme.translucentGray
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 fun PendingTasks(
     modifier: Modifier = Modifier,
-    viewModel: TodoTaskViewModel = hiltViewModel()
+    viewModel: TodoTaskViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
 ) {
     Column(
         modifier = modifier
