@@ -11,15 +11,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
 import com.gaproductivity.core.domain.UiEvents
-import com.ramcosta.composedestinations.annotation.Destination
+import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun TodoTasksListScreen(
+fun TodoTasksGroupsListScreen(
     modifier: Modifier = Modifier,
     navigator: DestinationsNavigator,
     titleBar: @Composable ()-> Unit,
+    todoNavigation: (TodoNavigation) -> Unit,
     viewModel: TodoTaskViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -42,7 +43,7 @@ fun TodoTasksListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    todoNavigation(TodoNavigation.ToAddNewTodoTaskGroup)
                 }
             ) {
                 Text(

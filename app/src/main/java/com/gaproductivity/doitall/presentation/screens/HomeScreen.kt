@@ -17,7 +17,7 @@ import androidx.navigation.NavOptionsBuilder
 import com.gaproductivity.doitall.R
 import com.gaproductivity.doitall.presentation.components.PendingTasks
 import com.gaproductivity.doitall.presentation.components.TopBar
-import com.gaproductivity.doitall.presentation.destinations.TodoTasksScreenDestination
+import com.gaproductivity.doitall.presentation.destinations.TodoTasksGroupsScreenNavDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
@@ -58,7 +58,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .padding(vertical = 2.dp, horizontal = 4.dp)
                     .clickable {
-                    navigator.navigate(direction = TodoTasksScreenDestination)
+                    navigator.navigate(direction = TodoTasksGroupsScreenNavDestination)
                 }
             )
         }
