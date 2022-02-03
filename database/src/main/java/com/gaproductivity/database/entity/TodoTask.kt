@@ -12,13 +12,13 @@ data class TodoTask(
     val todoTaskId: Int? = null,
 
     @ColumnInfo(name = Constants.TODO_TASK_TITLE)
-    val todoTaskTitle: String,
+    var todoTaskTitle: String,
 
     @ColumnInfo(name = Constants.TODO_TASK_GROUP_ID)
     val todoTaskGroupId: Int,
 
     @ColumnInfo(name = Constants.TODO_TASK_DESCRIPTION)
-    val todoTaskDescription: String,
+    var todoTaskDescription: String,
 
     @ColumnInfo(name = Constants.TODO_TASK_COLOR)
     val todoTaskColor: Int,

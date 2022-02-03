@@ -12,7 +12,7 @@ data class TodoTaskGroup(
     val todoTaskGroupId: Int? = null,
 
     @ColumnInfo(name = Constants.TODO_TASK_GROUP_NAME)
-    val todoTaskGroupName: String,
+    var todoTaskGroupName: String,
 
     @ColumnInfo(name = Constants.IS_SYNCED)
     val isSynced: Boolean = false
