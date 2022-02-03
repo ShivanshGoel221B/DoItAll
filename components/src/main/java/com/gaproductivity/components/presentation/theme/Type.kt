@@ -1,4 +1,4 @@
-package com.gaproductivity.doitall.presentation.ui.theme
+package com.gaproductivity.components.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

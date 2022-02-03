@@ -2,8 +2,8 @@ package com.gaproductivity.doitall.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gaproductivity.components.presentation.theme.DoItAllTheme
 import com.gaproductivity.doitall.presentation.destinations.AddTodoTaskGroupNavDestination
-import com.gaproductivity.doitall.presentation.ui.theme.DoItAllTheme
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
 import com.gaproductivity.todo_tasks.presentation.ui.AddTodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksGroupsListScreen

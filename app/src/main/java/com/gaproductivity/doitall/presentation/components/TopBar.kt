@@ -17,8 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.gaproductivity.doitall.presentation.ui.theme.cardColor
-import com.gaproductivity.doitall.presentation.ui.theme.textColor
+import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
 
 @Composable

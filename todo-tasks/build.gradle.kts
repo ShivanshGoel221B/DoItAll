@@ -58,6 +58,7 @@ dependencies {
 
     implementation(project(Modules.database))
     implementation(project(Modules.core))
+    implementation(project(Modules.components))
 
     implementation(AndroidX.core)
 

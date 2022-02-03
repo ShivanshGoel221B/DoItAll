@@ -16,9 +16,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gaproductivity.components.presentation.theme.DoItAllTheme
 import com.gaproductivity.doitall.presentation.components.DefaultNavAnimation
 import com.gaproductivity.doitall.presentation.screens.HomeScreen
-import com.gaproductivity.doitall.presentation.ui.theme.DoItAllTheme
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

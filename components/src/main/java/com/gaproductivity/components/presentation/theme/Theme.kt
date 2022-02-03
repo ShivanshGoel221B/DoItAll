@@ -1,4 +1,4 @@
-package com.gaproductivity.doitall.presentation.ui.theme
+package com.gaproductivity.components.presentation.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
