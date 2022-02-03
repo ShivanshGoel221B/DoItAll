@@ -1,6 +1,5 @@
 package com.gaproductivity.todo_tasks.domain.repository
 
-import com.gaproductivity.database.entity.ClassGroup
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
 import kotlinx.coroutines.flow.Flow

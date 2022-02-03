@@ -1,7 +1,6 @@
 package com.gaproductivity.core.domain
 
 import java.util.*
-import java.util.regex.Pattern
 
 object Validators {
 

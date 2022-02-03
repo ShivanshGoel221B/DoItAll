@@ -13,8 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavOptionsBuilder
-import com.gaproductivity.doitall.R
 import com.gaproductivity.doitall.presentation.components.PendingTasks
 import com.gaproductivity.doitall.presentation.components.TopBar
 import com.gaproductivity.doitall.presentation.destinations.TodoTasksGroupsScreenNavDestination

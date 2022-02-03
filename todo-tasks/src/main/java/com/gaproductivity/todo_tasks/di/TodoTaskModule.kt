@@ -1,8 +1,8 @@
 package com.gaproductivity.todo_tasks.di
 
-import com.gaproductivity.todo_tasks.repository.TodoTaskRepositoryImpl
-import com.gaproductivity.todo_tasks.domain.repository.TodoTaskRepository
 import com.gaproductivity.database.Database
+import com.gaproductivity.todo_tasks.domain.repository.TodoTaskRepository
+import com.gaproductivity.todo_tasks.repository.TodoTaskRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

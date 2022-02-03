@@ -1,11 +1,9 @@
 package com.gaproductivity.todo_tasks.repository
 
-import com.gaproductivity.todo_tasks.domain.repository.TodoTaskRepository
-import com.gaproductivity.database.dao.ClassGroupDao
 import com.gaproductivity.database.dao.TodoTaskDao
-import com.gaproductivity.database.entity.ClassGroup
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
+import com.gaproductivity.todo_tasks.domain.repository.TodoTaskRepository
 import kotlinx.coroutines.flow.Flow
 
 class TodoTaskRepositoryImpl(private val dao: TodoTaskDao) : TodoTaskRepository {

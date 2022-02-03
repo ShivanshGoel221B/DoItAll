@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -14,13 +13,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.subtitleColor
 import com.gaproductivity.components.presentation.theme.textColor
-import com.gaproductivity.components.presentation.theme.translucentGrayColor
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
 import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
-import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
 

@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.components.presentation.theme.translucentGray
-import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
