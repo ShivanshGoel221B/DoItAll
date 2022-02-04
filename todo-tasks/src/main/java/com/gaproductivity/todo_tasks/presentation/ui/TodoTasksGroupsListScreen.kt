@@ -1,7 +1,7 @@
 package com.gaproductivity.todo_tasks.presentation.ui
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
+import com.gaproductivity.todo_tasks.presentation.ui.components.TodoTaskGroupCard
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
@@ -26,6 +27,7 @@ fun TodoTasksGroupsListScreen(
     todoNavigation: (TodoNavigation) -> Unit,
     viewModel: TodoTaskViewModel = hiltViewModel()
 ) {
+    val groupsList = viewModel.allTodoTaskGroups
     val scaffoldState = rememberScaffoldState()
     LaunchedEffect(key1 = true) {
         viewModel.uiEvents.collect { event: UiEvents ->
@@ -58,7 +60,19 @@ fun TodoTasksGroupsListScreen(
         },
         topBar = titleBar
     ) {
-
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            contentPadding = PaddingValues(bottom = 110.dp)
+        ) {
+            groupsList.value.forEach {todoTaskGroup ->
+                item {
+                    Spacer(modifier = Modifier.size(24.dp))
+                    TodoTaskGroupCard(todoTaskGroup = todoTaskGroup, onEvent = viewModel::onEvent)
+                }
+            }
+        }
 
     }
 }

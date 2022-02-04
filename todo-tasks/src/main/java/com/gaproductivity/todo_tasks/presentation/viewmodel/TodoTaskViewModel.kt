@@ -107,6 +107,16 @@ class TodoTaskViewModel @Inject constructor(
                     }
                 }
             }
+            is TodoTaskEvent.DeleteTodoTaskGroupClicked -> {
+                sendEvent(
+                    UiEvents.ShowSnackBar("Delete group")
+                )
+            }
+            is TodoTaskEvent.EditTodoTaskGroupClicked -> {
+                sendEvent(
+                    UiEvents.ShowSnackBar("Edit Group")
+                )
+            }
 
             else -> Unit
         }
