@@ -5,7 +5,8 @@ import com.gaproductivity.database.entity.TodoTaskGroup
 import kotlinx.coroutines.flow.Flow
 
 interface TodoTaskRepository {
-    fun getAllTodos(): Flow<List<TodoTask>>
+    fun getAllTodoTasks(): Flow<List<TodoTask>>
+    fun getAllTodoTaskGroups(): Flow<List<TodoTaskGroup>>
     suspend fun getTodoTaskById(todoTaskId: Int): TodoTask?
     suspend fun createTodoTask(todoTask: TodoTask)
     suspend fun createTodoGroup(todoTaskGroup: TodoTaskGroup)

@@ -16,6 +16,9 @@ interface TodoTaskDao {
     @Query("SELECT * FROM ${Constants.TODO_TASK}")
     fun getAllTodoTasks(): Flow<List<TodoTask>>
 
+    @Query("SELECT * FROM ${Constants.TODO_TASK_GROUP}")
+    fun getAllTodoTaskGroups(): Flow<List<TodoTaskGroup>>
+
     @Query("SELECT * FROM ${Constants.TODO_TASK} WHERE todoTaskId = :todoTaskId")
     suspend fun getTodoTaskById(todoTaskId: Int): TodoTask?
 

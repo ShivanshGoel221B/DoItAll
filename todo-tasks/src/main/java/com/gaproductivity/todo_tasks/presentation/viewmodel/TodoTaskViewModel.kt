@@ -12,6 +12,7 @@ import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.domain.filter.TodoTaskFilter
 import com.gaproductivity.todo_tasks.domain.use_cases.*
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
+import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -25,12 +26,16 @@ class TodoTaskViewModel @Inject constructor(
     private val createTodoTaskUseCase: CreateTodoTaskUseCase,
     private val createTodoTaskGroupUseCase: CreateTodoTaskGroupUseCase,
     private val getAllTodoTasksUseCase: GetAllTodoTasksUseCase,
+    private val getAllTodoTaskGroupsUseCase: GetAllTodoTaskGroupsUseCase,
     private val getTodoTaskUseCase: GetTodoTaskUseCase,
     private val filterTodoTasksUseCase: FilterTodoTasksUseCase
 ): ViewModel() {
 
     private val _allTodoTasks: MutableState<List<TodoTask>> = mutableStateOf(emptyList())
     val allTodoTasks: State<List<TodoTask>> = _allTodoTasks
+
+    private val _allTodoTaskGroup: MutableState<List<TodoTaskGroup>> = mutableStateOf(emptyList())
+    val allTodoTaskGroups: State<List<TodoTaskGroup>> = _allTodoTaskGroup
 
     private val _createTodoGroup: MutableState<TodoTaskGroup> = mutableStateOf(
         TodoTaskGroup(
@@ -48,8 +53,13 @@ class TodoTaskViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getAllTodoTasksUseCase.invoke().collect {
+            getAllTodoTasksUseCase().collect {
                 _allTodoTasks.value = it
+            }
+        }
+        viewModelScope.launch {
+            getAllTodoTaskGroupsUseCase().collect {
+                _allTodoTaskGroup.value = it
             }
         }
     }

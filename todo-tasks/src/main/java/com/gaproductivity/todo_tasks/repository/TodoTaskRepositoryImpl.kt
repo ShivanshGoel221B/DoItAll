@@ -8,8 +8,12 @@ import kotlinx.coroutines.flow.Flow
 
 class TodoTaskRepositoryImpl(private val dao: TodoTaskDao) : TodoTaskRepository {
 
-    override fun getAllTodos(): Flow<List<TodoTask>> {
+    override fun getAllTodoTasks(): Flow<List<TodoTask>> {
         return dao.getAllTodoTasks()
+    }
+
+    override fun getAllTodoTaskGroups(): Flow<List<TodoTaskGroup>> {
+        return dao.getAllTodoTaskGroups()
     }
 
     override suspend fun getTodoTaskById(todoTaskId: Int): TodoTask? {
