@@ -7,32 +7,31 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropDownCircle
 import androidx.compose.material.icons.filled.ArrowDropUp
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.textColor
-import com.gaproductivity.components.presentation.theme.translucentGrayColor
+import com.gaproductivity.components.presentation.ui.DialogBox
+import com.gaproductivity.core.domain.DialogModel
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
 @Composable
 fun TodoTaskGroupCard(
     modifier: Modifier = Modifier,
     todoTaskGroup: TodoTaskGroup,
+    navigator: DestinationsNavigator,
     onEvent: (TodoTaskEvent) -> Unit
 ) {
+
     val viewOptions: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
@@ -80,12 +79,24 @@ fun TodoTaskGroupCard(
             }
             AnimatedVisibility(visible = viewOptions.value) {
                 Column {
-                    TodoTasksListOptions(model = todoTaskGroup, onEvent = onEvent)
+                    TodoTasksListOptions(
+                        onDeleteClick = {
+                            onEvent(
+                                TodoTaskEvent.DeleteTodoTaskGroupClicked(todoTaskGroup)
+                            )
+                        },
+                        onEditClick = {
+                            onEvent(
+                                TodoTaskEvent.EditTodoTaskGroupClicked(todoTaskGroup)
+                            )
+                        }
+                    )
                     Spacer(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(1.dp)
-                            .background(MaterialTheme.colors.cardColor))
+                            .background(MaterialTheme.colors.cardColor)
+                    )
                 }
             }
 

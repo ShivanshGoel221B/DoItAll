@@ -2,8 +2,8 @@ package com.gaproductivity.components.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
-val primaryColor = Color(0xFF81C784)
-val secondaryColor = Color(0xFF81C784)
+val primaryColor = Color(0xFF2196F3)
+val secondaryColor = Color(0xFF2196F3)
 
 val surfaceColorLight = Color(0xFFFFFFFF)
 val surfaceColorDark = Color(0xFF000000)

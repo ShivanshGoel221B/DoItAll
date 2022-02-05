@@ -12,7 +12,6 @@ import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.domain.filter.TodoTaskFilter
 import com.gaproductivity.todo_tasks.domain.use_cases.*
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
-import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
@@ -28,6 +27,8 @@ class TodoTaskViewModel @Inject constructor(
     private val getAllTodoTasksUseCase: GetAllTodoTasksUseCase,
     private val getAllTodoTaskGroupsUseCase: GetAllTodoTaskGroupsUseCase,
     private val getTodoTaskUseCase: GetTodoTaskUseCase,
+    private val deleteTodoTaskGroupUseCase: DeleteTodoTaskGroupUseCase,
+    private val deleteTodoTaskUseCase: DeleteTodoTaskUseCase,
     private val filterTodoTasksUseCase: FilterTodoTasksUseCase
 ): ViewModel() {
 
@@ -108,13 +109,32 @@ class TodoTaskViewModel @Inject constructor(
                 }
             }
             is TodoTaskEvent.DeleteTodoTaskGroupClicked -> {
-                sendEvent(
-                    UiEvents.ShowSnackBar("Delete group")
-                )
+                toDeleteTodoTaskGroup = todoTaskEvent.todoTaskGroup
+                _showDeleteDialog.value = true
             }
             is TodoTaskEvent.EditTodoTaskGroupClicked -> {
+
+            }
+            is TodoTaskEvent.ConfirmTodoTaskGroupDelete -> {
+                deleteTodoTaskGroup()
+            }
+            is TodoTaskEvent.ConfirmTodoTaskDelete -> {
+
+            }
+            is TodoTaskEvent.DismissTodoTaskDelete -> {
+
+            }
+            is TodoTaskEvent.DismissTodoTaskGroupDelete -> {
+                toDeleteTodoTaskGroup = null
+                _showDeleteDialog.value = false
+            }
+            is TodoTaskEvent.ItemDeleted -> {
+                toDeleteTodoTaskGroup = null
+                _showDeleteDialog.value = false
                 sendEvent(
-                    UiEvents.ShowSnackBar("Edit Group")
+                    UiEvents.ShowSnackBar(
+                        message = "${todoTaskEvent.itemName} Deleted Successfully"
+                    )
                 )
             }
 
@@ -122,10 +142,41 @@ class TodoTaskViewModel @Inject constructor(
         }
     }
 
+    private val _showDeleteDialog = mutableStateOf(false)
+    val showDeleteDialog: State<Boolean> = _showDeleteDialog
+
     private fun sendEvent(event: UiEvents) {
         viewModelScope.launch {
             _uiEvents.send(event)
         }
     }
+
+    //DB Functions
+
+    private var toDeleteTodoTaskGroup: TodoTaskGroup? = null
+
+    private fun deleteTodoTaskGroup() {
+        toDeleteTodoTaskGroup?.let { todoTaskGroup ->
+            viewModelScope.launch {
+                deleteTodoTaskGroupUseCase(todoTaskGroup)
+            }.invokeOnCompletion {
+                onEvent(
+                    TodoTaskEvent.ItemDeleted(todoTaskGroup.todoTaskGroupName)
+                )
+            }
+        }
+    }
+
+    fun deleteTodoTask(todoTask: TodoTask) {
+        viewModelScope.launch {
+            deleteTodoTaskUseCase(todoTask)
+        }.invokeOnCompletion {
+            onEvent(
+                TodoTaskEvent.ItemDeleted(todoTask.todoTaskTitle)
+            )
+        }
+    }
+
+
 
 }

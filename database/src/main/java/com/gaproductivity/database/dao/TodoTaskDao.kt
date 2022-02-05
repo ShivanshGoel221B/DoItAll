@@ -1,10 +1,7 @@
 package com.gaproductivity.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 import com.gaproductivity.database.Constants
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
@@ -28,7 +25,15 @@ interface TodoTaskDao {
     @Insert(onConflict = REPLACE, entity = TodoTaskGroup::class)
     suspend fun createTodoTaskGroup(todoTaskGroup: TodoTaskGroup)
 
-    @Update
-    suspend fun updateTodo(todoTask: TodoTask)
+    @Update(entity = TodoTask::class)
+    suspend fun updateTodoTask(todoTask: TodoTask)
 
+    @Update(entity = TodoTaskGroup::class)
+    suspend fun updateTodoTaskGroup(todoTaskGroup: TodoTaskGroup)
+
+    @Delete(entity = TodoTask::class)
+    suspend fun deleteTodoTask(todoTask: TodoTask)
+
+    @Delete(entity = TodoTaskGroup::class)
+    suspend fun deleteTodoTaskGroup(todoTaskGroup: TodoTaskGroup)
 }

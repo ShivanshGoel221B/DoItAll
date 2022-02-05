@@ -12,4 +12,9 @@ sealed class TodoTaskEvent {
     data class EditTodoTaskClicked(val todoTask: TodoTask): TodoTaskEvent()
     data class DeleteTodoTaskGroupClicked(val todoTaskGroup: TodoTaskGroup): TodoTaskEvent()
     data class DeleteTodoTaskClicked(val todoTask: TodoTask): TodoTaskEvent()
+    data class ItemDeleted(val itemName: String): TodoTaskEvent()
+    object ConfirmTodoTaskDelete: TodoTaskEvent()
+    object ConfirmTodoTaskGroupDelete: TodoTaskEvent()
+    object DismissTodoTaskDelete: TodoTaskEvent()
+    object DismissTodoTaskGroupDelete: TodoTaskEvent()
 }

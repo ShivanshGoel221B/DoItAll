@@ -4,11 +4,10 @@ import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.domain.repository.TodoTaskRepository
 import javax.inject.Inject
 
-class CreateTodoTaskGroupUseCase @Inject constructor(
-    private val repository: TodoTaskRepository
+class DeleteTodoTaskGroupUseCase @Inject constructor(
+    private val todoTaskRepository: TodoTaskRepository
 ) {
     suspend operator fun invoke(todoTaskGroup: TodoTaskGroup) {
-        todoTaskGroup.todoTaskGroupName = todoTaskGroup.todoTaskGroupName.trim()
-        repository.createTodoTaskGroup(todoTaskGroup)
+        todoTaskRepository.deleteTodoTaskGroup(todoTaskGroup)
     }
 }
