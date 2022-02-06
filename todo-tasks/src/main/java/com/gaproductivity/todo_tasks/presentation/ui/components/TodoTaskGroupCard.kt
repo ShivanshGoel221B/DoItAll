@@ -86,6 +86,9 @@ fun TodoTaskGroupCard(
                             todoNavigation(
                                 TodoNavigation.ToEditTodoTaskGroup(todoTaskGroup)
                             )
+                        },
+                        onDoneAllClick = {
+
                         }
                     )
                     Spacer(
