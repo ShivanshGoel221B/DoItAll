@@ -96,6 +96,7 @@ dependencies {
     implementation(Compose.hiltNavigation)
     //Accompanist
     implementation(Accompanist.systemUiController)
+    implementation(Accompanist.pager)
 
     //Navigation Library
     implementation(Destinations.core)

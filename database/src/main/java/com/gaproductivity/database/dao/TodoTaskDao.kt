@@ -19,6 +19,9 @@ interface TodoTaskDao {
     @Query("SELECT * FROM ${Constants.TODO_TASK} WHERE todoTaskId = :todoTaskId")
     suspend fun getTodoTaskById(todoTaskId: Int): TodoTask?
 
+    @Query("SELECT * FROM ${Constants.TODO_TASK_GROUP} WHERE todoTaskGroupId = :todoTaskGroupId")
+    suspend fun getTodoTaskGroupById(todoTaskGroupId: Int): TodoTaskGroup?
+
     @Insert(onConflict = REPLACE, entity = TodoTask::class)
     suspend fun createTodoTask(todoTask: TodoTask)
 

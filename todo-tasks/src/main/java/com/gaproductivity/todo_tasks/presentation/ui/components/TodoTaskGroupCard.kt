@@ -107,13 +107,12 @@ fun TodoTaskGroupCard(
                         horizontal = 8.dp
                     ).height(120.dp)
                     .fillMaxWidth()
-
                     .background(color = Color.Transparent),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 HorizontalTodoTaskRow(
                     todoNavigation = todoNavigation,
-                    todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!
+                    todoTaskGroup = todoTaskGroup
                 )
             }
         }

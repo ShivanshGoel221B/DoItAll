@@ -8,6 +8,7 @@ interface TodoTaskRepository {
     fun getAllTodoTasks(): Flow<List<TodoTask>>
     fun getAllTodoTaskGroups(): Flow<List<TodoTaskGroup>>
     suspend fun getTodoTaskById(todoTaskId: Int): TodoTask?
+    suspend fun getTodoTaskGroupById(todoTaskGroupId: Int): TodoTaskGroup?
     suspend fun createTodoTask(todoTask: TodoTask)
     suspend fun createTodoTaskGroup(todoTaskGroup: TodoTaskGroup)
     suspend fun updateTodoTask(todoTask: TodoTask)

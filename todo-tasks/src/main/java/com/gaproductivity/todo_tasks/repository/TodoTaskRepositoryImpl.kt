@@ -20,6 +20,10 @@ class TodoTaskRepositoryImpl(private val dao: TodoTaskDao) : TodoTaskRepository 
         return dao.getTodoTaskById(todoTaskId)
     }
 
+    override suspend fun getTodoTaskGroupById(todoTaskGroupId: Int): TodoTaskGroup? {
+        return dao.getTodoTaskGroupById(todoTaskGroupId)
+    }
+
     override suspend fun createTodoTask(todoTask: TodoTask) {
         dao.createTodoTask(todoTask)
     }

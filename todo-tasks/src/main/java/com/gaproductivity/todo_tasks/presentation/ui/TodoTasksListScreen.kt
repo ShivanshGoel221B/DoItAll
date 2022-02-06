@@ -1,14 +1,16 @@
 package com.gaproductivity.todo_tasks.presentation.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -16,25 +18,33 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.ui.DialogBox
 import com.gaproductivity.core.domain.DialogModel
 import com.gaproductivity.core.domain.UiEvents
+import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
 import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
-import com.gaproductivity.todo_tasks.presentation.ui.components.TodoTaskGroupCard
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
 
+
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun TodoTasksGroupsListScreen(
+fun TodoTasksListScreen(
     modifier: Modifier = Modifier,
+    todoTaskGroup: TodoTaskGroup,
     navigator: DestinationsNavigator,
     titleBar: @Composable () -> Unit,
     todoNavigation: (TodoNavigation) -> Unit,
     todoTaskViewModel: TodoTaskViewModel = hiltViewModel()
 ) {
-    val groupsList = todoTaskViewModel.allTodoTaskGroups
+
+    val allTodoTasks by remember {
+        todoTaskViewModel.allTodoTasks
+    }
 
     val scaffoldState = rememberScaffoldState()
-
     LaunchedEffect(key1 = true) {
         todoTaskViewModel.uiEvents.collect { event: UiEvents ->
             when (event) {
@@ -54,15 +64,15 @@ fun TodoTasksGroupsListScreen(
     AnimatedVisibility(todoTaskViewModel.showDeleteDialog.value) {
         DialogBox(dialogModel = DialogModel(
             title = "Delete Confirmation",
-            message = "Deleting this group will also delete all Todo Tasks in this group. Are you sure you want to continue?",
+            message = "Are you sure you want to delete this Todo Task?",
             onDismiss = {
-                todoTaskViewModel.onEvent(TodoTaskEvent.DismissTodoTaskGroupDelete)
+                todoTaskViewModel.onEvent(TodoTaskEvent.DismissTodoTaskDelete)
             },
             onPositive = {
-                todoTaskViewModel.onEvent(TodoTaskEvent.ConfirmTodoTaskGroupDelete)
+                todoTaskViewModel.onEvent(TodoTaskEvent.ConfirmTodoTaskDelete)
             },
             onNegative = {
-                todoTaskViewModel.onEvent(TodoTaskEvent.DismissTodoTaskGroupDelete)
+                todoTaskViewModel.onEvent(TodoTaskEvent.DismissTodoTaskDelete)
             }
         ))
     }
@@ -73,35 +83,24 @@ fun TodoTasksGroupsListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    todoNavigation(TodoNavigation.ToAddNewTodoTaskGroup)
+                    todoNavigation(TodoNavigation.ToAddNewTodoTask)
                 }
             ) {
                 Text(
                     modifier = Modifier.padding(horizontal = 14.dp),
-                    text = "Add New Tasks Group",
+                    text = "Add New Task",
                     color = Color.White
                 )
             }
         },
         topBar = titleBar
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            contentPadding = PaddingValues(bottom = 110.dp)
+        val pagerState = rememberPagerState()
+        HorizontalPager(
+            count = 2,
+            state = pagerState
         ) {
-            groupsList.value.forEach { todoTaskGroup ->
-                item {
-                    Spacer(modifier = Modifier.size(24.dp))
-                    TodoTaskGroupCard(
-                        todoTaskGroup = todoTaskGroup,
-                        onEvent = todoTaskViewModel::onEvent,
-                        todoNavigation = todoNavigation
-                    )
-                }
-            }
+            Text(text = todoTaskGroup.todoTaskGroupName)
         }
-
     }
 }

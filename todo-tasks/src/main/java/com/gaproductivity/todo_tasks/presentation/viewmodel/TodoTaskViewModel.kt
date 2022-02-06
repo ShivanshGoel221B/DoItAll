@@ -27,6 +27,7 @@ class TodoTaskViewModel @Inject constructor(
     private val getAllTodoTasksUseCase: GetAllTodoTasksUseCase,
     private val getAllTodoTaskGroupsUseCase: GetAllTodoTaskGroupsUseCase,
     private val getTodoTaskUseCase: GetTodoTaskUseCase,
+    private val getTodoTaskGroupUseCase: GetTodoTaskGroupUseCase,
     private val deleteTodoTaskGroupUseCase: DeleteTodoTaskGroupUseCase,
     private val deleteTodoTaskUseCase: DeleteTodoTaskUseCase,
     private val filterTodoTasksUseCase: FilterTodoTasksUseCase
@@ -37,6 +38,12 @@ class TodoTaskViewModel @Inject constructor(
 
     private val _allTodoTaskGroup: MutableState<List<TodoTaskGroup>> = mutableStateOf(emptyList())
     val allTodoTaskGroups: State<List<TodoTaskGroup>> = _allTodoTaskGroup
+
+    private val _todoTask: MutableState<TodoTask?> = mutableStateOf(null)
+    val todoTask: State<TodoTask?> = _todoTask
+
+    private val _todoTaskGroup: MutableState<TodoTaskGroup?> = mutableStateOf(null)
+    val todoTaskGroup: State<TodoTaskGroup?> = _todoTaskGroup
 
     private val _createEditTodoGroup: MutableState<TodoTaskGroup> = mutableStateOf(
         TodoTaskGroup(
@@ -100,6 +107,18 @@ class TodoTaskViewModel @Inject constructor(
             TodoTaskFilter.FilterByGroup(todoTaskGroupId),
             TodoTaskFilter.FilterByPending(true)
         )
+    }
+
+    fun getTodoTaskGroup(todoTaskGroupId: Int) {
+        viewModelScope.launch {
+            _todoTaskGroup.value = getTodoTaskGroupUseCase(todoTaskGroupId)
+        }
+    }
+
+    fun getTodoTask(todoTaskId: Int) {
+        viewModelScope.launch {
+            _todoTask.value = getTodoTaskUseCase(todoTaskId)
+        }
     }
 
     fun getTodoTasksByGroupId(groupId: Int): List<TodoTask> {

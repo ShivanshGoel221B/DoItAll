@@ -71,6 +71,7 @@ dependencies {
     implementation(Compose.hiltNavigation)
     //Accompanist
     implementation(Accompanist.systemUiController)
+    implementation(Accompanist.pager)
 
     // UI Tests
     androidTestImplementation(ComposeTest.uiTestJunit4)

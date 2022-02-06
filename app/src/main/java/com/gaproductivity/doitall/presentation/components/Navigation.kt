@@ -8,10 +8,12 @@ import com.gaproductivity.components.presentation.theme.DoItAllTheme
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.doitall.presentation.components.destinations.AddTodoTaskGroupNavDestination
 import com.gaproductivity.doitall.presentation.components.destinations.EditTodoTaskGroupNavDestination
+import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksListNavDestination
 import com.gaproductivity.doitall.presentation.screens.HomeScreen
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
 import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksGroupsListScreen
+import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksListScreen
 import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.ramcosta.composedestinations.annotation.Destination
@@ -28,7 +30,7 @@ fun HomeScreenNav(
         systemUiController.setStatusBarColor(
             color = MaterialTheme.colors.surface
         )
-        Scaffold{
+        Scaffold {
             HomeScreen(
                 navigator = navigator,
                 todoNavigation = { navigation ->
@@ -50,6 +52,27 @@ fun TodoTasksGroupsScreenNav(
             navigator = navigator,
             titleBar = {
                 TopBar(screenTitle = "Task Groups")
+            },
+            todoNavigation = {
+                navigateTodoTask(navigator, it)
+            }
+        )
+    }
+}
+
+@Destination(style = DefaultNavAnimation::class)
+@Composable
+fun TodoTasksListNav(
+    todoTaskGroup: TodoTaskGroup,
+    navigator: DestinationsNavigator,
+    mainViewModel: MainViewModel = hiltViewModel()
+) {
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        TodoTasksListScreen(
+            todoTaskGroup = todoTaskGroup,
+            navigator = navigator,
+            titleBar = {
+                TopBar(screenTitle = todoTaskGroup.todoTaskGroupName)
             },
             todoNavigation = {
                 navigateTodoTask(navigator, it)
@@ -109,6 +132,11 @@ fun navigateTodoTask(
         }
         is TodoNavigation.ToTodoTask -> {
 
+        }
+        is TodoNavigation.ToTodoTasksList -> {
+            navigator.navigate(
+                TodoTasksListNavDestination(todoNavigation.todoTaskGroup)
+            )
         }
         else -> Unit
     }

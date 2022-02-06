@@ -12,15 +12,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
 
 @Composable
 fun HorizontalTodoTaskRow(
     modifier: Modifier = Modifier,
     todoNavigation: (TodoNavigation) -> Unit,
-    todoTaskGroupId: Int,
+    todoTaskGroup: TodoTaskGroup,
     todoTodoTaskViewModel: TodoTaskViewModel = hiltViewModel()
 ) {
+    val todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!
     val allTodoTasksList = todoTodoTaskViewModel.allTodoTasks.value
     val pendingGroupTasks = todoTodoTaskViewModel.getPendingGroupTodoTasks(
         allTodoTasksList,
@@ -61,7 +63,11 @@ fun HorizontalTodoTaskRow(
             TextButton(
                 modifier = Modifier
                     .padding(vertical = 2.dp, horizontal = 4.dp),
-                onClick = {}
+                onClick = {
+                    todoNavigation(
+                        TodoNavigation.ToTodoTasksList(todoTaskGroup)
+                    )
+                }
             ) {
                 Text(
                     text = "View All",
