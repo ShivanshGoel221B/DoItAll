@@ -15,13 +15,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.gaproductivity.doitall.presentation.components.PendingTasks
 import com.gaproductivity.doitall.presentation.components.TopBar
-import com.gaproductivity.doitall.presentation.destinations.TodoTasksGroupsScreenNavDestination
+import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksGroupsScreenNavDestination
+import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
 @Composable
 fun HomeScreen(
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    todoNavigation: (TodoNavigation) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -41,7 +43,9 @@ fun HomeScreen(
         ) {
             TopBar()
         }
-        PendingTasks(navigator = navigator)
+        PendingTasks(
+            todoNavigation = todoNavigation
+        )
         Spacer(modifier = Modifier.size(2.dp))
         Row(
             horizontalArrangement = Arrangement.End,
@@ -56,8 +60,8 @@ fun HomeScreen(
                 modifier = Modifier
                     .padding(vertical = 2.dp, horizontal = 4.dp)
                     .clickable {
-                    navigator.navigate(direction = TodoTasksGroupsScreenNavDestination)
-                }
+                        navigator.navigate(direction = TodoTasksGroupsScreenNavDestination)
+                    }
             )
         }
     }

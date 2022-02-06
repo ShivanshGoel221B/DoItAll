@@ -94,6 +94,14 @@ class TodoTaskViewModel @Inject constructor(
         )
     }
 
+    fun getPendingGroupTodoTasks(allTodoTasks: List<TodoTask>, todoTaskGroupId: Int): List<TodoTask> {
+        return filterTodoTasksUseCase(
+            allTodoTasks,
+            TodoTaskFilter.FilterByGroup(todoTaskGroupId),
+            TodoTaskFilter.FilterByPending(true)
+        )
+    }
+
     fun getTodoTasksByGroupId(groupId: Int): List<TodoTask> {
         return filterTodoTasksUseCase(
             allTodoTasks.value,

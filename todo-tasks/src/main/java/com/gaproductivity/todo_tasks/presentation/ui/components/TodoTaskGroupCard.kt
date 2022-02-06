@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -36,7 +37,7 @@ fun TodoTaskGroupCard(
     Card(
         modifier = modifier,
         backgroundColor = Color.Transparent,
-        shape = MaterialTheme.shapes.medium,
+        shape = RoundedCornerShape(12.dp),
         elevation = 0.dp,
         border = BorderStroke(
             width = 1.dp,
@@ -102,12 +103,18 @@ fun TodoTaskGroupCard(
 
             Row(
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(
+                        horizontal = 8.dp
+                    ).height(120.dp)
                     .fillMaxWidth()
-                    .height(100.dp)
-                    .background(color = Color.Transparent)
-            ) {
 
+                    .background(color = Color.Transparent),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                HorizontalTodoTaskRow(
+                    todoNavigation = todoNavigation,
+                    todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!
+                )
             }
         }
     }

@@ -6,4 +6,5 @@ sealed class TodoNavigation {
     object ToAddNewTodoTaskGroup: TodoNavigation()
     data class ToEditTodoTaskGroup(val todoTaskGroup: TodoTaskGroup): TodoNavigation()
     data class ToTodoTaskGroup(val groupId: Int): TodoNavigation()
+    data class ToTodoTask(val todoTaskId: Int): TodoNavigation()
 }

@@ -19,14 +19,14 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.components.presentation.theme.translucentGray
+import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 fun PendingTasks(
     modifier: Modifier = Modifier,
     viewModel: TodoTaskViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    todoNavigation: (TodoNavigation) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -62,8 +62,11 @@ fun PendingTasks(
                             Card(
                                 shape = MaterialTheme.shapes.medium,
                                 modifier = Modifier.clickable {
-//                                    onNavigate(UiEvents.Navigate(""))
-                                    // TODO: Add Route
+                                    todoNavigation(
+                                        TodoNavigation.ToTodoTask(
+                                            todoTask.todoTaskId!!
+                                        )
+                                    )
                                 },
                                 backgroundColor = Color.White
                             ) {
@@ -75,7 +78,7 @@ fun PendingTasks(
                                         modifier = Modifier.padding(6.dp),
                                         text = todoTask.todoTaskTitle,
                                         color = MaterialTheme.colors.textColor,
-                                        fontSize = 22.sp,
+                                        fontSize = 18.sp,
                                         textAlign = TextAlign.Center,
                                         overflow = TextOverflow.Ellipsis
                                     )
