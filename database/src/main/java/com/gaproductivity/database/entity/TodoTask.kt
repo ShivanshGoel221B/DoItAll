@@ -26,8 +26,17 @@ data class TodoTask(
     @ColumnInfo(name = Constants.IS_COMPLETE)
     val isComplete: Boolean = false,
 
+    @ColumnInfo(name = Constants.DEADLINE)
+    val deadline: Long? = null,
+
     @ColumnInfo(name = Constants.REMINDER)
     val reminder: Long? = null,
+
+    @ColumnInfo(name = Constants.CREATED_AT)
+    val createdAt: Long,
+
+    @ColumnInfo(name = Constants.DONE_AT)
+    val doneAt: Long? = null,
 
     @ColumnInfo(name = Constants.IS_SYNCED)
     val isSynced: Boolean = false

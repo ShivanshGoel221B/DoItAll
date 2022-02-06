@@ -17,4 +17,8 @@ object Constants {
     const val TODO_TASK_COLOR = "todoTaskColor"
     const val IS_COMPLETE = "isComplete"
     const val REMINDER = "reminder"
+    const val DONE_AT = "doneAt"
+    const val DEADLINE = "deadline"
+
+    const val CREATED_AT = "createdAt"
 }
