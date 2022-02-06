@@ -3,10 +3,7 @@ package com.gaproductivity.todo_tasks.presentation.ui.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DeleteForever
@@ -17,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
@@ -45,14 +43,22 @@ fun TodoTasksListOptions(
             onClick = onDeleteClick,
             modifier = Modifier.weight(1f)
         ) {
-            Icon(imageVector = Icons.Default.DeleteForever, contentDescription = "Delete")
+            Icon(
+                imageVector = Icons.Default.DeleteForever,
+                contentDescription = "Delete",
+                tint = Color.Red
+            )
         }
 
         IconButton(
             onClick = onEditClick,
             modifier = Modifier.weight(1f)
         ) {
-            Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit")
+            Icon(
+                imageVector = Icons.Default.Edit,
+                contentDescription = "Edit",
+                tint = MaterialTheme.colors.primary
+            )
         }
 
     }
