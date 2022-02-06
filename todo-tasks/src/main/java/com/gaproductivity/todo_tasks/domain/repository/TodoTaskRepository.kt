@@ -11,6 +11,7 @@ interface TodoTaskRepository {
     suspend fun createTodoTask(todoTask: TodoTask)
     suspend fun createTodoTaskGroup(todoTaskGroup: TodoTaskGroup)
     suspend fun updateTodoTask(todoTask: TodoTask)
+    suspend fun updateTodoTaskGroup(todoTaskGroup: TodoTaskGroup)
     suspend fun deleteTodoTaskGroup(todoTaskGroup: TodoTaskGroup)
     suspend fun deleteTodoTask(todoTask: TodoTask)
 }

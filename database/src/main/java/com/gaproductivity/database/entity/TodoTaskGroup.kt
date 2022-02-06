@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gaproductivity.database.Constants
+import java.io.Serializable
 
 @Entity(tableName = Constants.TODO_TASK_GROUP)
 data class TodoTaskGroup(
@@ -16,4 +17,4 @@ data class TodoTaskGroup(
 
     @ColumnInfo(name = Constants.IS_SYNCED)
     val isSynced: Boolean = false
-)
+): Serializable

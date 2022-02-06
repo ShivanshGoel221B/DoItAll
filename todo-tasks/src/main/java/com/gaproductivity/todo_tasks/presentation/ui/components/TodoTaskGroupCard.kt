@@ -17,22 +17,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.textColor
-import com.gaproductivity.components.presentation.ui.DialogBox
-import com.gaproductivity.core.domain.DialogModel
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
 @Composable
 fun TodoTaskGroupCard(
     modifier: Modifier = Modifier,
     todoTaskGroup: TodoTaskGroup,
-    navigator: DestinationsNavigator,
-    onEvent: (TodoTaskEvent) -> Unit
+    onEvent: (TodoTaskEvent) -> Unit,
+    todoNavigation: (TodoNavigation) -> Unit
 ) {
 
-    val viewOptions: MutableState<Boolean> = remember {
+    var viewOptions by remember {
         mutableStateOf(false)
     }
 
@@ -67,17 +64,17 @@ fun TodoTaskGroupCard(
                     overflow = TextOverflow.Ellipsis
                 )
                 IconButton(onClick = {
-                    viewOptions.value = !viewOptions.value
+                    viewOptions = !viewOptions
                 }) {
                     val icon =
-                        if (viewOptions.value) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown
+                        if (viewOptions) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown
                     Icon(
                         imageVector = icon,
                         contentDescription = "Show More"
                     )
                 }
             }
-            AnimatedVisibility(visible = viewOptions.value) {
+            AnimatedVisibility(visible = viewOptions) {
                 Column {
                     TodoTasksListOptions(
                         onDeleteClick = {
@@ -86,8 +83,8 @@ fun TodoTaskGroupCard(
                             )
                         },
                         onEditClick = {
-                            onEvent(
-                                TodoTaskEvent.EditTodoTaskGroupClicked(todoTaskGroup)
+                            todoNavigation(
+                                TodoNavigation.ToEditTodoTaskGroup(todoTaskGroup)
                             )
                         }
                     )

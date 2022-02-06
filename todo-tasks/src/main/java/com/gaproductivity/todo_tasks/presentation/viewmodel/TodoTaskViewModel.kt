@@ -38,19 +38,21 @@ class TodoTaskViewModel @Inject constructor(
     private val _allTodoTaskGroup: MutableState<List<TodoTaskGroup>> = mutableStateOf(emptyList())
     val allTodoTaskGroups: State<List<TodoTaskGroup>> = _allTodoTaskGroup
 
-    private val _createTodoGroup: MutableState<TodoTaskGroup> = mutableStateOf(
+    private val _createEditTodoGroup: MutableState<TodoTaskGroup> = mutableStateOf(
         TodoTaskGroup(
             todoTaskGroupName = ""
         )
     )
+    val createTodoGroup: State<TodoTaskGroup> = _createEditTodoGroup
 
     private val _formNameError: MutableState<Boolean> = mutableStateOf(false)
-    val formNameError: State<Boolean> = _formNameError
 
+    val formNameError: State<Boolean> = _formNameError
     private val _formDescriptionError: MutableState<Boolean> = mutableStateOf(false)
+
     val formDescriptionError: State<Boolean> = _formDescriptionError
 
-    val createTodoGroup: State<TodoTaskGroup> = _createTodoGroup
+    val editTodoTaskGroup: MutableState<TodoTaskGroup?> = mutableStateOf(null)
 
     init {
         viewModelScope.launch {
@@ -68,12 +70,18 @@ class TodoTaskViewModel @Inject constructor(
     private val _uiEvents: Channel<UiEvents> = Channel()
     val uiEvents = _uiEvents.receiveAsFlow()
 
-    fun updateCreateGroup(newName: String) {
+    fun initUpdateTodoGroup(todoTaskGroup: TodoTaskGroup) {
+        _createEditTodoGroup.value = todoTaskGroup
+    }
+
+    fun updateTodoGroupFormName(newName: String) {
         val updatedTodoTaskGroup = TodoTaskGroup(todoTaskGroupName = newName)
         try {
             _formNameError.value = false
-            _createTodoGroup.value = updatedTodoTaskGroup
-            Validators.validateName(_createTodoGroup.value.todoTaskGroupName)
+            _createEditTodoGroup.value = _createEditTodoGroup.value.copy(
+                todoTaskGroupName = updatedTodoTaskGroup.todoTaskGroupName
+            )
+            Validators.validateName(_createEditTodoGroup.value.todoTaskGroupName)
         } catch (e: InputMismatchException) {
             _formNameError.value = true
         }
@@ -95,11 +103,11 @@ class TodoTaskViewModel @Inject constructor(
 
     fun onEvent(todoTaskEvent: TodoTaskEvent) {
         when(todoTaskEvent) {
-            is TodoTaskEvent.SubmitNewTodoTaskGroup -> {
+            is TodoTaskEvent.SubmitTodoTaskGroup -> {
                 if (!_formNameError.value) {
                     viewModelScope.launch {
                         createTodoTaskGroupUseCase(
-                            _createTodoGroup.value
+                            _createEditTodoGroup.value
                         )
                     }.invokeOnCompletion {
                         sendEvent(
@@ -111,9 +119,6 @@ class TodoTaskViewModel @Inject constructor(
             is TodoTaskEvent.DeleteTodoTaskGroupClicked -> {
                 toDeleteTodoTaskGroup = todoTaskEvent.todoTaskGroup
                 _showDeleteDialog.value = true
-            }
-            is TodoTaskEvent.EditTodoTaskGroupClicked -> {
-
             }
             is TodoTaskEvent.ConfirmTodoTaskGroupDelete -> {
                 deleteTodoTaskGroup()

@@ -32,6 +32,10 @@ class TodoTaskRepositoryImpl(private val dao: TodoTaskDao) : TodoTaskRepository 
         dao.updateTodoTask(todoTask)
     }
 
+    override suspend fun updateTodoTaskGroup(todoTaskGroup: TodoTaskGroup) {
+        dao.updateTodoTaskGroup(todoTaskGroup)
+    }
+
     override suspend fun deleteTodoTaskGroup(todoTaskGroup: TodoTaskGroup) {
         dao.deleteTodoTaskGroup(todoTaskGroup)
     }

@@ -16,31 +16,34 @@ import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
-import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun AddTodoTaskGroup(
+fun AddEditTodoTaskGroup(
     modifier: Modifier = Modifier,
     navigator: DestinationsNavigator,
-    titleBar: @Composable ()-> Unit,
-    todoNavigation: (TodoNavigation) -> Unit,
+    titleBar: @Composable () -> Unit,
+    initialTodoTaskGroup: TodoTaskGroup? = null,
     viewModel: TodoTaskViewModel = hiltViewModel()
 ) {
+
     Scaffold(
         modifier = modifier,
         topBar = titleBar
     ) {
-        val todoTaskGroup: TodoTaskGroup = viewModel.createTodoGroup.value
         val onEvent = viewModel::onEvent
         LaunchedEffect(key1 = true) {
+            initialTodoTaskGroup?.let {
+                viewModel.initUpdateTodoGroup(it)
+            }
             viewModel.uiEvents.collect {event ->
                 if (event is UiEvents.PopBackStack)
                     navigator.popBackStack()
             }
         }
+        val todoTaskGroup: TodoTaskGroup = viewModel.createTodoGroup.value
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -58,7 +61,7 @@ fun AddTodoTaskGroup(
                     .background(MaterialTheme.colors.surface),
                 shape = MaterialTheme.shapes.medium,
                 value = todoTaskGroup.todoTaskGroupName,
-                onValueChange = viewModel::updateCreateGroup,
+                onValueChange = viewModel::updateTodoGroupFormName,
                 isError = viewModel.formNameError.value,
                 textStyle = TextStyle(
                     color = MaterialTheme.colors.textColor,
@@ -84,10 +87,10 @@ fun AddTodoTaskGroup(
             Button(
                 modifier = Modifier.padding(vertical = 4.dp, horizontal = 14.dp),
                 onClick = {
-                onEvent(TodoTaskEvent.SubmitNewTodoTaskGroup)
+                onEvent(TodoTaskEvent.SubmitTodoTaskGroup)
             }) {
                 Text(
-                    text = "Create",
+                    text = if(initialTodoTaskGroup == null) "Create" else "Update",
                     color = Color.White,
                     fontSize = 14.sp
                 )

@@ -7,7 +7,8 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -92,8 +93,8 @@ fun TodoTasksGroupsListScreen(
                     Spacer(modifier = Modifier.size(24.dp))
                     TodoTaskGroupCard(
                         todoTaskGroup = todoTaskGroup,
-                        navigator = navigator,
-                        onEvent = todoTaskViewModel::onEvent
+                        onEvent = todoTaskViewModel::onEvent,
+                        todoNavigation = todoNavigation
                     )
                 }
             }
