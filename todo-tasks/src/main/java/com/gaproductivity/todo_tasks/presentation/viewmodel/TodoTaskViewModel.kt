@@ -109,6 +109,14 @@ class TodoTaskViewModel @Inject constructor(
         )
     }
 
+    fun getCompletedGroupTodoTasks(allTodoTasks: List<TodoTask>, todoTaskGroupId: Int): List<TodoTask> {
+        return filterTodoTasksUseCase(
+            allTodoTasks,
+            TodoTaskFilter.FilterByGroup(todoTaskGroupId),
+            TodoTaskFilter.FilterByPending(false)
+        )
+    }
+
     fun getTodoTaskGroup(todoTaskGroupId: Int) {
         viewModelScope.launch {
             _todoTaskGroup.value = getTodoTaskGroupUseCase(todoTaskGroupId)

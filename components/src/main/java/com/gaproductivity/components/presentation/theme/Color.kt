@@ -11,6 +11,8 @@ val surfaceColorDark = Color(0xFF000000)
 val backgroundColorLight = Color(0xFFFFFFFF)
 val backgroundColorDark = Color(0xFF000000)
 
+val orange = Color(0xFFFF5722)
+
 val textColorLight = Color(0xFFFFFFFF)
 val textColorDark = Color(0xFF04131B)
 

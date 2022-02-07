@@ -1,32 +1,37 @@
 package com.gaproductivity.todo_tasks.presentation.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AssignmentLate
+import androidx.compose.material.icons.filled.DoneAll
+import androidx.compose.material.icons.filled.Pending
+import androidx.compose.material.icons.filled.PendingActions
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gaproductivity.components.presentation.theme.orange
 import com.gaproductivity.components.presentation.ui.DialogBox
 import com.gaproductivity.core.domain.DialogModel
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
 import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
+import com.gaproductivity.todo_tasks.presentation.ui.components.TodoTasksList
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalPagerApi::class)
@@ -43,6 +48,29 @@ fun TodoTasksListScreen(
     val allTodoTasks by remember {
         todoTaskViewModel.allTodoTasks
     }
+
+    val pagerList = listOf(
+        TodoTasksList(
+            modifier = Modifier.fillMaxSize(),
+            fullTodoTasksList = allTodoTasks,
+            todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!
+        ),
+        TodoTasksList(
+            modifier = Modifier.fillMaxSize(),
+            fullTodoTasksList = allTodoTasks,
+            todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!,
+            isPending = false
+        )
+    )
+
+    todoTaskViewModel.getTodoTasksByGroupId(todoTaskGroup.todoTaskGroupId!!)
+
+    val pagerState = rememberPagerState(pageCount = 3)
+    val tabsData = listOf(
+        "Pending" to Icons.Default.Pending,
+        "Completed" to Icons.Default.DoneAll,
+        "Missed" to Icons.Default.AssignmentLate
+    )
 
     val scaffoldState = rememberScaffoldState()
     LaunchedEffect(key1 = true) {
@@ -95,12 +123,179 @@ fun TodoTasksListScreen(
         },
         topBar = titleBar
     ) {
-        val pagerState = rememberPagerState()
-        HorizontalPager(
-            count = 2,
-            state = pagerState
+        val tabIndex = pagerState.currentPage
+        val coroutineScope = rememberCoroutineScope()
+
+        Column {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                PendingRadioButton(
+                    isSelected = tabIndex == 0,
+                    onClick = {
+                        if (tabIndex != 0)
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(0)
+                            }
+                    }
+                )
+
+                CompletedRadioButton(
+                    isSelected = tabIndex == 1,
+                    onClick = {
+                        if (tabIndex != 1)
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(1)
+                            }
+                    }
+                )
+
+                MissedRadioButton(
+                    isSelected = tabIndex == 2,
+                    onClick = {
+                        if (tabIndex != 2)
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(2)
+                            }
+                    }
+                )
+            }
+
+            HorizontalPager(
+                state = pagerState,
+            ) { index ->
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = tabsData[index].first,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun PendingRadioButton(
+    modifier: Modifier = Modifier,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+
+    Button(
+        onClick = {
+            onClick()
+        },
+        modifier = modifier
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = if (isSelected) orange else MaterialTheme.colors.background,
+            contentColor = if (isSelected) Color.White else orange
+        ),
+        shape = RoundedCornerShape(25.dp),
+        border = BorderStroke(
+            width = 2.dp,
+            color = orange
+        )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = todoTaskGroup.todoTaskGroupName)
+            Icon(
+                imageVector = Icons.Default.PendingActions,
+                contentDescription = "Pending Icon",
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = "Pending",
+                fontSize = 14.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun CompletedRadioButton(
+    modifier: Modifier = Modifier,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+
+    Button(
+        onClick = {
+            onClick()
+        },
+        modifier = modifier
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = if (isSelected) Color.Green else MaterialTheme.colors.background,
+            contentColor = if (isSelected) Color.White else Color.Green
+        ),
+        shape = RoundedCornerShape(25.dp),
+        border = BorderStroke(
+            width = 2.dp,
+            color = Color.Green
+        )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Default.DoneAll,
+                contentDescription = "Completed Icon",
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = "Done",
+                fontSize = 14.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun MissedRadioButton(
+    modifier: Modifier = Modifier,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+
+    Button(
+        onClick = {
+            onClick()
+        },
+        modifier = modifier
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = if (isSelected) Color.Red else MaterialTheme.colors.background,
+            contentColor = if (isSelected) Color.White else Color.Red
+        ),
+        shape = RoundedCornerShape(25.dp),
+        border = BorderStroke(
+            width = 2.dp,
+            color = Color.Red
+        )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Default.AssignmentLate,
+                contentDescription = "Missed Icon",
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = "Missed",
+                fontSize = 14.sp
+            )
         }
     }
 }
