@@ -49,28 +49,9 @@ fun TodoTasksListScreen(
         todoTaskViewModel.allTodoTasks
     }
 
-    val pagerList = listOf(
-        TodoTasksList(
-            modifier = Modifier.fillMaxSize(),
-            fullTodoTasksList = allTodoTasks,
-            todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!
-        ),
-        TodoTasksList(
-            modifier = Modifier.fillMaxSize(),
-            fullTodoTasksList = allTodoTasks,
-            todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!,
-            isPending = false
-        )
-    )
-
     todoTaskViewModel.getTodoTasksByGroupId(todoTaskGroup.todoTaskGroupId!!)
 
     val pagerState = rememberPagerState(pageCount = 3)
-    val tabsData = listOf(
-        "Pending" to Icons.Default.Pending,
-        "Completed" to Icons.Default.DoneAll,
-        "Missed" to Icons.Default.AssignmentLate
-    )
 
     val scaffoldState = rememberScaffoldState()
     LaunchedEffect(key1 = true) {
@@ -166,13 +147,24 @@ fun TodoTasksListScreen(
             HorizontalPager(
                 state = pagerState,
             ) { index ->
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = tabsData[index].first,
+                when (index) {
+                    0 -> TodoTasksList(
+                        modifier = Modifier.fillMaxSize(),
+                        fullTodoTasksList = allTodoTasks,
+                        todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!
+                    )
+                    1 -> TodoTasksList(
+                        modifier = Modifier.fillMaxSize(),
+                        fullTodoTasksList = allTodoTasks,
+                        todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!,
+                        isPending = false
+                    )
+                    else -> TodoTasksList(
+                        modifier = Modifier.fillMaxSize(),
+                        fullTodoTasksList = allTodoTasks,
+                        todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!,
+                        isPending = false,
+                        isMissed = true
                     )
                 }
             }

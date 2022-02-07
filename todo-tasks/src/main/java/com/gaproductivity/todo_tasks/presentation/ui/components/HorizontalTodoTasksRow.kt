@@ -73,7 +73,7 @@ fun HorizontalTodoTaskRow(
                     text = "View All",
                     color = MaterialTheme.colors.primary,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp
+                    fontSize = 14.sp
                 )
             }
         }

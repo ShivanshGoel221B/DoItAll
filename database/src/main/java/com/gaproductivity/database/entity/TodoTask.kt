@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gaproductivity.database.Constants
+import java.util.*
 
 @Entity(tableName = Constants.TODO_TASK)
 data class TodoTask(
@@ -41,3 +42,12 @@ data class TodoTask(
     @ColumnInfo(name = Constants.IS_SYNCED)
     val isSynced: Boolean = false
 )
+
+fun TodoTask.isMissed(): Boolean {
+    if (deadline == null)
+        return false
+    val now = Calendar.getInstance().timeInMillis
+    if (now > deadline)
+        return true
+    return false
+}

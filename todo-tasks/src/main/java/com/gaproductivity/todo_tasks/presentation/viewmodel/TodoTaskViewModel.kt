@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.core.domain.Validators
+import com.gaproductivity.core.domain.constants.CardColors
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.domain.filter.TodoTaskFilter
@@ -117,6 +118,14 @@ class TodoTaskViewModel @Inject constructor(
         )
     }
 
+    fun getMissedGroupTodoTasks(allTodoTasks: List<TodoTask>, todoTaskGroupId: Int): List<TodoTask> {
+        return filterTodoTasksUseCase(
+            allTodoTasks,
+            TodoTaskFilter.FilterByGroup(todoTaskGroupId),
+            TodoTaskFilter.FilterByMissed(true)
+        )
+    }
+
     fun getTodoTaskGroup(todoTaskGroupId: Int) {
         viewModelScope.launch {
             _todoTaskGroup.value = getTodoTaskGroupUseCase(todoTaskGroupId)
@@ -216,7 +225,5 @@ class TodoTaskViewModel @Inject constructor(
             )
         }
     }
-
-
 
 }
