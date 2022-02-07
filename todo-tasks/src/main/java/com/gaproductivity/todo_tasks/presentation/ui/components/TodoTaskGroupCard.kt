@@ -89,7 +89,7 @@ fun TodoTaskGroupCard(
                             )
                         },
                         onDoneAllClick = {
-
+                            onEvent(TodoTaskEvent.MarkAllAsDone(todoTaskGroup.todoTaskGroupId))
                         }
                     )
                     Spacer(

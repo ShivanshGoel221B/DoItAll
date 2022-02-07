@@ -12,4 +12,6 @@ sealed class TodoTaskEvent {
     object ConfirmTodoTaskGroupDelete: TodoTaskEvent()
     object DismissTodoTaskDelete: TodoTaskEvent()
     object DismissTodoTaskGroupDelete: TodoTaskEvent()
+    data class MarkAllAsDone(val todoTaskGroupId: Int?): TodoTaskEvent()
+    data class MarkAsDone(val todoTask: TodoTask): TodoTaskEvent()
 }

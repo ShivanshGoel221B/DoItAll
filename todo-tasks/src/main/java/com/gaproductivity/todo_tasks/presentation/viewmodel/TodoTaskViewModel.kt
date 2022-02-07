@@ -31,6 +31,7 @@ class TodoTaskViewModel @Inject constructor(
     private val getTodoTaskGroupUseCase: GetTodoTaskGroupUseCase,
     private val deleteTodoTaskGroupUseCase: DeleteTodoTaskGroupUseCase,
     private val deleteTodoTaskUseCase: DeleteTodoTaskUseCase,
+    private val markTodoTaskDoneUseCase: MarkTodoTaskDoneUseCase,
     private val filterTodoTasksUseCase: FilterTodoTasksUseCase
 ): ViewModel() {
 
@@ -186,6 +187,12 @@ class TodoTaskViewModel @Inject constructor(
                     )
                 )
             }
+            is TodoTaskEvent.MarkAllAsDone -> {
+                markTodoTaskGroupAsDone(todoTaskEvent.todoTaskGroupId)
+            }
+            is TodoTaskEvent.MarkAsDone -> {
+                markTodoTaskAsDone(todoTaskEvent.todoTask)
+            }
 
             else -> Unit
         }
@@ -223,6 +230,20 @@ class TodoTaskViewModel @Inject constructor(
             onEvent(
                 TodoTaskEvent.ItemDeleted(todoTask.todoTaskTitle)
             )
+        }
+    }
+
+    private fun markTodoTaskAsDone(todoTask: TodoTask) {
+        viewModelScope.launch {
+            markTodoTaskDoneUseCase(todoTask)
+        }
+    }
+
+    private fun markTodoTaskGroupAsDone(todoTaskGroupId: Int?) {
+        todoTaskGroupId?.let { groupId ->
+            getTodoTasksByGroupId(groupId).forEach { todoTask ->
+                markTodoTaskAsDone(todoTask)
+            }
         }
     }
 

@@ -285,7 +285,7 @@ fun MissedRadioButton(
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "Missed",
+                text = "Late",
                 fontSize = 14.sp
             )
         }
