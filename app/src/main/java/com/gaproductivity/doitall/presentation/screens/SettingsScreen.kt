@@ -67,9 +67,9 @@ fun SettingsScreen(
                     fontSize = 18.sp
                 )
                 Switch(
-                    checked = mainViewModel.darkMode.value,
+                    checked = mainViewModel.autoBackup.value,
                     onCheckedChange = {
-                        mainViewModel.switchMode()
+                        mainViewModel.switchAutoBackup()
                     }
                 )
             }

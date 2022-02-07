@@ -21,14 +21,19 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
 
     private val darkModeKey = booleanPreferencesKey("darkMode")
+    private val autoBackupKey = booleanPreferencesKey("autoBackup")
 
     private val _darkMode: MutableState<Boolean> = mutableStateOf(true)
     val darkMode: State<Boolean> = _darkMode
+
+    private val _autoBackup: MutableState<Boolean> = mutableStateOf(true)
+    val autoBackup: State<Boolean> = _autoBackup
 
     init {
         viewModelScope.launch {
             dataStore.data.collect {
                 _darkMode.value = it[darkModeKey] ?: true
+                _autoBackup.value = it[autoBackupKey] ?: true
             }
         }
     }
@@ -39,6 +44,16 @@ class MainViewModel @Inject constructor(
             dataStore.edit {
                 it[darkModeKey] = !currentMode
                 _darkMode.value = !currentMode
+            }
+        }
+    }
+
+    fun switchAutoBackup() {
+        val currentPref = _autoBackup.value
+        viewModelScope.launch {
+            dataStore.edit {
+                it[autoBackupKey] = !currentPref
+                _autoBackup.value = !currentPref
             }
         }
     }
