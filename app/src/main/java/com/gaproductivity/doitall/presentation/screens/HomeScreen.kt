@@ -41,7 +41,7 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
         ) {
-            TopBar()
+            TopBar(navigator = navigator)
         }
         PendingTasks(
             todoNavigation = todoNavigation

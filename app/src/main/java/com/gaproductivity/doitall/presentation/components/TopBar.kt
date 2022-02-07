@@ -7,9 +7,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,13 +16,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.textColor
+import com.gaproductivity.doitall.presentation.components.destinations.SettingsNavDestination
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
     screenTitle: String = "Do It All",
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
 ) {
     Row(
         modifier = modifier
@@ -50,17 +51,48 @@ fun TopBar(
         )
 
         IconButton(onClick = {
-            viewModel.switchMode()
+            navigator.navigate(
+                SettingsNavDestination
+            )
         }) {
-            val icon = if (viewModel.darkMode.value)
-                Icons.Default.LightMode
-            else Icons.Default.DarkMode
             Icon(
-                imageVector = icon,
+                imageVector = Icons.Default.Settings,
                 tint = MaterialTheme.colors.textColor,
-                contentDescription = "Switch Mode"
+                contentDescription = "Setting Icon"
             )
         }
+    }
+
+}
+
+
+@Composable
+fun SettingsTopBar(
+    modifier: Modifier = Modifier,
+    navigator: DestinationsNavigator
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(color = Color.Transparent),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconButton(onClick = {
+            navigator.popBackStack()
+        }) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                tint = MaterialTheme.colors.textColor,
+                contentDescription = "Go Back"
+            )
+        }
+        Spacer(modifier = Modifier.size(6.dp))
+        Text(
+            text = "Settings",
+            color = MaterialTheme.colors.textColor,
+            fontSize = 18.sp,
+            modifier = Modifier.width(0.dp).weight(1f, true),
+        )
     }
 
 }

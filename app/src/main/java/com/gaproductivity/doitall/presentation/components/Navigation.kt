@@ -10,6 +10,7 @@ import com.gaproductivity.doitall.presentation.components.destinations.AddTodoTa
 import com.gaproductivity.doitall.presentation.components.destinations.EditTodoTaskGroupNavDestination
 import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksListNavDestination
 import com.gaproductivity.doitall.presentation.screens.HomeScreen
+import com.gaproductivity.doitall.presentation.screens.SettingsScreen
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
 import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksGroupsListScreen
@@ -43,6 +44,17 @@ fun HomeScreenNav(
 
 @Destination(style = DefaultNavAnimation::class)
 @Composable
+fun SettingsNav(
+    navigator: DestinationsNavigator,
+    mainViewModel: MainViewModel = hiltViewModel()
+) {
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        SettingsScreen(navigator = navigator)
+    }
+}
+
+@Destination(style = DefaultNavAnimation::class)
+@Composable
 fun TodoTasksGroupsScreenNav(
     navigator: DestinationsNavigator,
     mainViewModel: MainViewModel = hiltViewModel()
@@ -51,7 +63,10 @@ fun TodoTasksGroupsScreenNav(
         TodoTasksGroupsListScreen(
             navigator = navigator,
             titleBar = {
-                TopBar(screenTitle = "Task Groups")
+                TopBar(
+                    screenTitle = "Task Groups",
+                    navigator = navigator
+                )
             },
             todoNavigation = {
                 navigateTodoTask(navigator, it)
@@ -72,7 +87,10 @@ fun TodoTasksListNav(
             todoTaskGroup = todoTaskGroup,
             navigator = navigator,
             titleBar = {
-                TopBar(screenTitle = todoTaskGroup.todoTaskGroupName)
+                TopBar(
+                    screenTitle = todoTaskGroup.todoTaskGroupName,
+                    navigator = navigator
+                )
             },
             todoNavigation = {
                 navigateTodoTask(navigator, it)
@@ -91,7 +109,10 @@ fun AddTodoTaskGroupNav(
         AddEditTodoTaskGroup(
             navigator = navigator,
             titleBar = {
-                TopBar(screenTitle = "Add Todo Group")
+                TopBar(
+                    screenTitle = "Add Todo Group",
+                    navigator = navigator
+                )
             })
     }
 }
@@ -108,7 +129,10 @@ fun EditTodoTaskGroupNav(
             navigator = navigator,
             initialTodoTaskGroup = todoTaskGroup,
             titleBar = {
-                TopBar(screenTitle = "Edit Task Group")
+                TopBar(
+                    screenTitle = "Edit Task Group",
+                    navigator = navigator
+                )
             }
         )
     }
