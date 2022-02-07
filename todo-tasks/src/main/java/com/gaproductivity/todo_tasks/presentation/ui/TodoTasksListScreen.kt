@@ -8,7 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AssignmentLate
 import androidx.compose.material.icons.filled.DoneAll
-import androidx.compose.material.icons.filled.Pending
 import androidx.compose.material.icons.filled.PendingActions
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -92,7 +91,7 @@ fun TodoTasksListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    todoNavigation(TodoNavigation.ToAddNewTodoTask)
+                    todoNavigation(TodoNavigation.ToAddNewTodoTask(todoTaskGroup.todoTaskGroupId!!))
                 }
             ) {
                 Text(

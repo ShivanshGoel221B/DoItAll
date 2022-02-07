@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gaproductivity.database.Constants
+import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = Constants.TODO_TASK)
@@ -41,7 +42,7 @@ data class TodoTask(
 
     @ColumnInfo(name = Constants.IS_SYNCED)
     val isSynced: Boolean = false
-)
+): Serializable
 
 fun TodoTask.isMissed(): Boolean {
     if (deadline == null)

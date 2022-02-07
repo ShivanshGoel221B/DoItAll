@@ -5,13 +5,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.DoItAllTheme
+import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
+import com.gaproductivity.doitall.presentation.components.destinations.AddEditTodoTaskNavDestination
 import com.gaproductivity.doitall.presentation.components.destinations.AddTodoTaskGroupNavDestination
 import com.gaproductivity.doitall.presentation.components.destinations.EditTodoTaskGroupNavDestination
 import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksListNavDestination
 import com.gaproductivity.doitall.presentation.screens.HomeScreen
 import com.gaproductivity.doitall.presentation.screens.SettingsScreen
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
+import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTask
 import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksGroupsListScreen
 import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksListScreen
@@ -138,6 +141,29 @@ fun EditTodoTaskGroupNav(
     }
 }
 
+@Composable
+@Destination(style = DefaultNavAnimation::class)
+fun AddEditTodoTaskNav(
+    navigator: DestinationsNavigator,
+    mainViewModel: MainViewModel = hiltViewModel(),
+    todoTask: TodoTask? = null,
+    todoTaskGroupId: Int
+) {
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        AddEditTodoTask(
+            navigator = navigator,
+            initialTodoTask = todoTask,
+            todoTaskGroupId = todoTaskGroupId,
+            titleBar = {
+                TopBar(
+                    screenTitle = if (todoTask == null) "Add New Todo Task" else "Edit Todo Task",
+                    navigator = navigator
+                )
+            }
+        )
+    }
+}
+
 
 fun navigateTodoTask(
     navigator: DestinationsNavigator,
@@ -151,6 +177,19 @@ fun navigateTodoTask(
             navigator.navigate(
                 EditTodoTaskGroupNavDestination(
                     todoTaskGroup = todoNavigation.todoTaskGroup
+                )
+            )
+        }
+        is TodoNavigation.ToAddNewTodoTask -> {
+            navigator.navigate(
+                AddEditTodoTaskNavDestination(todoTaskGroupId = todoNavigation.todoTaskGroupId)
+            )
+        }
+        is TodoNavigation.ToEditTodoTask -> {
+            navigator.navigate(
+                AddEditTodoTaskNavDestination(
+                    todoTaskGroupId = todoNavigation.todoTaskGroupId,
+                    todoTask = todoNavigation.todoTask
                 )
             )
         }

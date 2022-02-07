@@ -36,14 +36,14 @@ fun AddEditTodoTaskGroup(
         val onEvent = viewModel::onEvent
         LaunchedEffect(key1 = true) {
             initialTodoTaskGroup?.let {
-                viewModel.initUpdateTodoGroup(it)
+                viewModel.initAddEditTodoGroup(it)
             }
             viewModel.uiEvents.collect {event ->
                 if (event is UiEvents.PopBackStack)
                     navigator.popBackStack()
             }
         }
-        val todoTaskGroup: TodoTaskGroup = viewModel.createTodoGroup.value
+        val todoTaskGroup: TodoTaskGroup = viewModel.addEditTodoGroup.value
         Column(
             modifier = Modifier
                 .fillMaxWidth()

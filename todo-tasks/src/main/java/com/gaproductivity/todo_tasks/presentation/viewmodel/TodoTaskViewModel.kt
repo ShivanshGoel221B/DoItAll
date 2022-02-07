@@ -47,19 +47,31 @@ class TodoTaskViewModel @Inject constructor(
     private val _todoTaskGroup: MutableState<TodoTaskGroup?> = mutableStateOf(null)
     val todoTaskGroup: State<TodoTaskGroup?> = _todoTaskGroup
 
-    private val _createEditTodoGroup: MutableState<TodoTaskGroup> = mutableStateOf(
+    private val _addEditTodoGroup: MutableState<TodoTaskGroup> = mutableStateOf(
         TodoTaskGroup(
             todoTaskGroupName = ""
         )
     )
-    val createTodoGroup: State<TodoTaskGroup> = _createEditTodoGroup
+    val addEditTodoGroup: State<TodoTaskGroup> = _addEditTodoGroup
+
+    private val _addEditTodoTask: MutableState<TodoTask> = mutableStateOf(
+        TodoTask(
+            todoTaskTitle = "",
+            todoTaskDescription = "",
+            todoTaskColor = CardColors.RED,
+            createdAt = 0,
+            todoTaskGroupId = 0
+        )
+    )
+    val addEditTodoTask: State<TodoTask> = _addEditTodoTask
 
     private val _formNameError: MutableState<Boolean> = mutableStateOf(false)
-
     val formNameError: State<Boolean> = _formNameError
-    private val _formDescriptionError: MutableState<Boolean> = mutableStateOf(false)
 
-    val formDescriptionError: State<Boolean> = _formDescriptionError
+    private val _formTodoTaskTitleError: MutableState<String?> = mutableStateOf(null)
+    val formTodoTaskTitleError: State<String?> = _formTodoTaskTitleError
+    private val _formDescriptionError: MutableState<String?> = mutableStateOf(null)
+    val formDescriptionError: State<String?> = _formDescriptionError
 
     val editTodoTaskGroup: MutableState<TodoTaskGroup?> = mutableStateOf(null)
 
@@ -79,21 +91,45 @@ class TodoTaskViewModel @Inject constructor(
     private val _uiEvents: Channel<UiEvents> = Channel()
     val uiEvents = _uiEvents.receiveAsFlow()
 
-    fun initUpdateTodoGroup(todoTaskGroup: TodoTaskGroup) {
-        _createEditTodoGroup.value = todoTaskGroup
+    fun initAddEditTodoGroup(todoTaskGroup: TodoTaskGroup) {
+        _addEditTodoGroup.value = todoTaskGroup
+    }
+    fun initAddEditTodoTask(todoTask: TodoTask?, todoTaskGroupId: Int) {
+        todoTask?.let {
+            _addEditTodoTask.value = it
+        }
+        _addEditTodoTask.value = _addEditTodoTask.value.copy(
+            todoTaskGroupId = todoTaskGroupId
+        )
     }
 
     fun updateTodoGroupFormName(newName: String) {
         val updatedTodoTaskGroup = TodoTaskGroup(todoTaskGroupName = newName)
         try {
             _formNameError.value = false
-            _createEditTodoGroup.value = _createEditTodoGroup.value.copy(
+            _addEditTodoGroup.value = _addEditTodoGroup.value.copy(
                 todoTaskGroupName = updatedTodoTaskGroup.todoTaskGroupName
             )
-            Validators.validateName(_createEditTodoGroup.value.todoTaskGroupName)
+            Validators.validateName(_addEditTodoGroup.value.todoTaskGroupName)
         } catch (e: InputMismatchException) {
             _formNameError.value = true
         }
+    }
+
+    fun updateTodoTaskForm(todoTask: TodoTask) {
+        _formTodoTaskTitleError.value = null
+        _formDescriptionError.value = null
+        try {
+            Validators.validateName(todoTask.todoTaskTitle)
+        } catch (e: InputMismatchException) {
+            _formTodoTaskTitleError.value = e.message
+        }
+        try {
+            Validators.validateTodoTaskDescription(todoTask.todoTaskDescription)
+        } catch (e: InputMismatchException) {
+            _formDescriptionError.value = e.message
+        }
+        _addEditTodoTask.value = todoTask
     }
 
     fun getPendingTodoTasks(allTodoTasks: List<TodoTask>): List<TodoTask> {
@@ -152,7 +188,7 @@ class TodoTaskViewModel @Inject constructor(
                 if (!_formNameError.value) {
                     viewModelScope.launch {
                         createTodoTaskGroupUseCase(
-                            _createEditTodoGroup.value
+                            _addEditTodoGroup.value
                         )
                     }.invokeOnCompletion {
                         sendEvent(
