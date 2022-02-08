@@ -11,6 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gaproductivity.components.presentation.theme.primaryTranslucent
 import com.gaproductivity.components.presentation.theme.subtitleColor
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.core.domain.UiEvents
@@ -55,10 +56,13 @@ fun AddEditTodoTaskGroup(
                 color = MaterialTheme.colors.textColor
             )
             Spacer(modifier = Modifier.size(6.dp))
-            TextField(
+            OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colors.surface),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    unfocusedBorderColor = primaryTranslucent
+                ),
                 shape = MaterialTheme.shapes.medium,
                 value = todoTaskGroup.todoTaskGroupName,
                 onValueChange = viewModel::updateTodoGroupFormName,
