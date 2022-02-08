@@ -182,9 +182,34 @@ class TodoTaskViewModel @Inject constructor(
         )
     }
 
+    private fun validateTodoTaskGroupSubmission() {
+        try {
+            _formNameError.value = false
+            Validators.validateName(_addEditTodoGroup.value.todoTaskGroupName)
+        } catch (e: InputMismatchException) {
+            _formNameError.value = true
+        }
+    }
+
+    private fun validateTodoTaskSubmission() {
+        _formTodoTaskTitleError.value = null
+        _formDescriptionError.value = null
+        try {
+            Validators.validateName(_addEditTodoTask.value.todoTaskTitle)
+        } catch (e: InputMismatchException) {
+            _formTodoTaskTitleError.value = e.message
+        }
+        try {
+            Validators.validateTodoTaskDescription(_addEditTodoTask.value.todoTaskDescription)
+        } catch (e: InputMismatchException) {
+            _formDescriptionError.value = e.message
+        }
+    }
+
     fun onEvent(todoTaskEvent: TodoTaskEvent) {
         when(todoTaskEvent) {
             is TodoTaskEvent.SubmitTodoTaskGroup -> {
+                validateTodoTaskGroupSubmission()
                 if (!_formNameError.value) {
                     viewModelScope.launch {
                         createTodoTaskGroupUseCase(
@@ -229,7 +254,21 @@ class TodoTaskViewModel @Inject constructor(
             is TodoTaskEvent.MarkAsDone -> {
                 markTodoTaskAsDone(todoTaskEvent.todoTask)
             }
-
+            is TodoTaskEvent.SubmitTodoTask -> {
+                validateTodoTaskSubmission()
+                if (
+                    _formTodoTaskTitleError.value == null
+                    && _formDescriptionError.value == null
+                ) {
+                    viewModelScope.launch {
+                        createTodoTaskUseCase(
+                            _addEditTodoTask.value
+                        )
+                    }.invokeOnCompletion {
+                        sendEvent(UiEvents.PopBackStack)
+                    }
+                }
+            }
             else -> Unit
         }
     }

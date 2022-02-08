@@ -5,6 +5,7 @@ import com.gaproductivity.database.entity.TodoTaskGroup
 
 sealed class TodoTaskEvent {
     object SubmitTodoTaskGroup: TodoTaskEvent()
+    object SubmitTodoTask: TodoTaskEvent()
     data class DeleteTodoTaskGroupClicked(val todoTaskGroup: TodoTaskGroup): TodoTaskEvent()
     data class DeleteTodoTaskClicked(val todoTask: TodoTask): TodoTaskEvent()
     data class ItemDeleted(val itemName: String): TodoTaskEvent()
