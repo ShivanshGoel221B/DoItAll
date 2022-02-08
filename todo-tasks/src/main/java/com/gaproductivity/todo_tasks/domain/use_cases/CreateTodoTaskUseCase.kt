@@ -7,10 +7,9 @@ import javax.inject.Inject
 
 class CreateTodoTaskUseCase
 @Inject constructor(
-    private val repository: TodoTaskRepository
+    private val repository: TodoTaskRepository,
+    private val reminder: Reminder
 ){
-    @Inject
-    lateinit var reminder: Reminder
 
     suspend operator fun invoke(todoTask: TodoTask) {
         todoTask.reminder?.let {
