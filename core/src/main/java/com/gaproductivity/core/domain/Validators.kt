@@ -32,7 +32,7 @@ object Validators {
     ) {
         if(name.isEmpty())
             throw InputMismatchException(
-                "Name should not be empty"
+                "Description should not be empty"
             )
         if (name.length > MAX_DESCRIPTION_LENGTH)
             throw InputMismatchException(

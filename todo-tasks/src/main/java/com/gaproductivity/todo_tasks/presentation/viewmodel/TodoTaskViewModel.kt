@@ -119,6 +119,7 @@ class TodoTaskViewModel @Inject constructor(
     fun updateTodoTaskForm(todoTask: TodoTask) {
         _formTodoTaskTitleError.value = null
         _formDescriptionError.value = null
+        _addEditTodoTask.value = todoTask
         try {
             Validators.validateName(todoTask.todoTaskTitle)
         } catch (e: InputMismatchException) {
@@ -129,7 +130,6 @@ class TodoTaskViewModel @Inject constructor(
         } catch (e: InputMismatchException) {
             _formDescriptionError.value = e.message
         }
-        _addEditTodoTask.value = todoTask
     }
 
     fun getPendingTodoTasks(allTodoTasks: List<TodoTask>): List<TodoTask> {
