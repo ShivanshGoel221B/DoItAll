@@ -8,10 +8,10 @@ import javax.inject.Inject
 class MarkTodoTaskDoneUseCase @Inject constructor(
     private val repository: TodoTaskRepository
 ) {
-    suspend operator fun invoke(todoTask: TodoTask) {
+    suspend operator fun invoke(todoTask: TodoTask, isComplete: Boolean = true) {
         repository.updateTodoTask(
             todoTask.copy(
-                isComplete = true,
+                isComplete = isComplete,
                 doneAt = Calendar.getInstance().timeInMillis
             )
         )

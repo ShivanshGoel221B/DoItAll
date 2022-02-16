@@ -88,7 +88,7 @@ fun TodoTaskGroupCard(
                                 TodoNavigation.ToEditTodoTaskGroup(todoTaskGroup)
                             )
                         },
-                        onDoneAllClick = {
+                        onMarkClick = {
                             onEvent(TodoTaskEvent.MarkAllAsDone(todoTaskGroup.todoTaskGroupId))
                         }
                     )

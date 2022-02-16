@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.core.domain.Validators
-import com.gaproductivity.core.domain.constants.CardColors
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.domain.filter.TodoTaskFilter
@@ -256,8 +255,8 @@ class TodoTaskViewModel @Inject constructor(
             is TodoTaskEvent.MarkAllAsDone -> {
                 markTodoTaskGroupAsDone(todoTaskEvent.todoTaskGroupId)
             }
-            is TodoTaskEvent.MarkAsDone -> {
-                markTodoTaskAsDone(todoTaskEvent.todoTask)
+            is TodoTaskEvent.MarkTodoTask -> {
+                changeTodoTaskCompleteState(todoTaskEvent.todoTask, todoTaskEvent.isComplete)
             }
             is TodoTaskEvent.SubmitTodoTask -> {
                 validateTodoTaskSubmission()
@@ -316,9 +315,12 @@ class TodoTaskViewModel @Inject constructor(
         }
     }
 
-    private fun markTodoTaskAsDone(todoTask: TodoTask) {
+    private fun changeTodoTaskCompleteState(todoTask: TodoTask, isComplete: Boolean = true) {
         viewModelScope.launch {
-            markTodoTaskDoneUseCase(todoTask)
+            markTodoTaskDoneUseCase(
+                todoTask = todoTask,
+                isComplete = isComplete
+            )
         }.invokeOnCompletion {
             getAllTodoTasksUseCase()
         }
@@ -327,7 +329,7 @@ class TodoTaskViewModel @Inject constructor(
     private fun markTodoTaskGroupAsDone(todoTaskGroupId: Int?) {
         todoTaskGroupId?.let { groupId ->
             getTodoTasksByGroupId(groupId).forEach { todoTask ->
-                markTodoTaskAsDone(todoTask)
+                changeTodoTaskCompleteState(todoTask)
             }
         }
     }

@@ -93,11 +93,12 @@ fun TodTaskCard(
                                 )
                             )
                         },
-                        onDoneAllClick = {
+                        onMarkClick = {
                             todoTaskEvent(
-                                TodoTaskEvent.MarkAsDone(todoTask)
+                                TodoTaskEvent.MarkTodoTask(todoTask, !todoTask.isComplete)
                             )
-                        }
+                        },
+                        isComplete = todoTask.isComplete
                     )
 
                     Divider()
