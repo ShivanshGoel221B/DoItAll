@@ -35,6 +35,7 @@ fun TodTaskCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(10.dp),
+        elevation = 10.dp,
         backgroundColor = MaterialTheme.colors.cardColor
     ) {
         Column(
