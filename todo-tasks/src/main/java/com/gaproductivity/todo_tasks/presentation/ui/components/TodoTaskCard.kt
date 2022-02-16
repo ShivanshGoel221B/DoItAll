@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.cardColor
+import com.gaproductivity.components.presentation.theme.orange
 import com.gaproductivity.components.presentation.theme.primaryColor
 import com.gaproductivity.core.domain.Converters
 import com.gaproductivity.database.entity.TodoTask
@@ -59,7 +60,7 @@ fun TodTaskCard(
                 ) {
                     Icon(
                         imageVector = if (expanded) Icons.Default.ArrowDropUp
-                                      else Icons.Default.ArrowDropDown,
+                        else Icons.Default.ArrowDropDown,
                         contentDescription = "Expand/Collapse Button"
                     )
                 }
@@ -114,25 +115,48 @@ fun TodTaskCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if (todoTask.deadline == null)
-                    Text(text = "No Deadline", fontSize = 14.sp)
-                else
-                    Text(
-                        modifier = Modifier.padding(horizontal = 12.dp),
-                        text = "Due: ${
-                            Converters
-                                .getFormattedDate(todoTask.deadline!!)
-                        } (${
-                            Converters
-                                .getFormattedTime(todoTask.deadline!!)
-                        })",
-                        fontSize = 14.sp,
-                        color = when {
-                            todoTask.isMissed() -> Color.Red
-                            todoTask.isComplete -> Color.Green
-                            else -> primaryColor
-                        }
-                    )
+                Column {
+                    if (todoTask.deadline == null)
+                        Text(
+                            modifier = Modifier.padding(horizontal = 6.dp),
+                            text = "No Deadline",
+                            fontSize = 14.sp
+                        )
+                    else
+                        Text(
+                            modifier = Modifier.padding(horizontal = 6.dp),
+                            text = "Due: ${
+                                Converters
+                                    .getFormattedDate(todoTask.deadline!!)
+                            } (${
+                                Converters
+                                    .getFormattedTime(todoTask.deadline!!)
+                            })",
+                            fontSize = 14.sp,
+                            color = when {
+                                todoTask.isMissed() -> Color.Red
+                                todoTask.isComplete -> Color.Green
+                                else -> primaryColor
+                            }
+                        )
+
+                    if (todoTask.doneAt !== null)
+                        Text(
+                            modifier = Modifier.padding(horizontal = 6.dp),
+                            text = "Done At: ${
+                                Converters
+                                    .getFormattedDate(todoTask.doneAt!!)
+                            } (${
+                                Converters
+                                    .getFormattedTime(todoTask.doneAt!!)
+                            })",
+                            fontSize = 14.sp,
+                            color = when {
+                                todoTask.isMissed() -> orange
+                                else -> primaryColor
+                            }
+                        )
+                }
 
                 val notificationIcon = if (todoTask.reminder == null)
                     Icons.Default.NotificationsOff else Icons.Default.NotificationsActive

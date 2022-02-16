@@ -30,7 +30,7 @@ class TodoTaskViewModel @Inject constructor(
     private val getTodoTaskGroupUseCase: GetTodoTaskGroupUseCase,
     private val deleteTodoTaskGroupUseCase: DeleteTodoTaskGroupUseCase,
     private val deleteTodoTaskUseCase: DeleteTodoTaskUseCase,
-    private val markTodoTaskDoneUseCase: MarkTodoTaskDoneUseCase,
+    private val markTodoTaskUseCase: MarkTodoTaskUseCase,
     private val filterTodoTasksUseCase: FilterTodoTasksUseCase
 ): ViewModel() {
 
@@ -317,7 +317,7 @@ class TodoTaskViewModel @Inject constructor(
 
     private fun changeTodoTaskCompleteState(todoTask: TodoTask, isComplete: Boolean = true) {
         viewModelScope.launch {
-            markTodoTaskDoneUseCase(
+            markTodoTaskUseCase(
                 todoTask = todoTask,
                 isComplete = isComplete
             )
