@@ -22,9 +22,6 @@ data class TodoTask(
     @ColumnInfo(name = Constants.TODO_TASK_DESCRIPTION)
     var todoTaskDescription: String,
 
-    @ColumnInfo(name = Constants.TODO_TASK_COLOR)
-    val todoTaskColor: Int,
-
     @ColumnInfo(name = Constants.IS_COMPLETE)
     val isComplete: Boolean = false,
 

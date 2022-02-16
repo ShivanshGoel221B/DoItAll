@@ -1,8 +1,6 @@
 package com.gaproductivity.todo_tasks.presentation.ui.components
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -19,6 +17,7 @@ fun TodoTasksList(
     modifier: Modifier = Modifier,
     fullTodoTasksList: List<TodoTask>,
     todoTaskGroupId: Int,
+    todoNavigation: (TodoNavigation) -> Unit,
     isPending: Boolean = true,
     isMissed: Boolean = false,
     todoTaskViewModel: TodoTaskViewModel = hiltViewModel()
@@ -41,9 +40,13 @@ fun TodoTasksList(
     ) {
         for (todoTask in filteredList) {
             item { 
-                Card(backgroundColor = Color(todoTask.todoTaskColor), modifier = Modifier.padding(20.dp)) {
-                    Text(text = todoTask.todoTaskTitle)
-                }
+                Spacer(modifier = Modifier.height(2.dp))
+                TodTaskCard(
+                    todoNavigation = todoNavigation,
+                    todoTask = todoTask,
+                    todoTaskEvent = todoTaskViewModel::onEvent
+                )
+                Spacer(modifier = Modifier.height(14.dp))
             }
         }
     }

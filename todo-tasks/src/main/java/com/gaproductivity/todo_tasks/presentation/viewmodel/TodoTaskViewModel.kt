@@ -58,7 +58,6 @@ class TodoTaskViewModel @Inject constructor(
         TodoTask(
             todoTaskTitle = "",
             todoTaskDescription = "",
-            todoTaskColor = CardColors.RED,
             createdAt = 0,
             todoTaskGroupId = 0
         )
@@ -226,14 +225,19 @@ class TodoTaskViewModel @Inject constructor(
                 toDeleteTodoTaskGroup = todoTaskEvent.todoTaskGroup
                 _showDeleteDialog.value = true
             }
+            is TodoTaskEvent.DeleteTodoTaskClicked -> {
+                toDeleteTodoTask = todoTaskEvent.todoTask
+                _showDeleteDialog.value = true
+            }
             is TodoTaskEvent.ConfirmTodoTaskGroupDelete -> {
                 deleteTodoTaskGroup()
             }
             is TodoTaskEvent.ConfirmTodoTaskDelete -> {
-
+                deleteTodoTask()
             }
             is TodoTaskEvent.DismissTodoTaskDelete -> {
-
+                toDeleteTodoTask = null
+                _showDeleteDialog.value = false
             }
             is TodoTaskEvent.DismissTodoTaskGroupDelete -> {
                 toDeleteTodoTaskGroup = null
@@ -241,6 +245,7 @@ class TodoTaskViewModel @Inject constructor(
             }
             is TodoTaskEvent.ItemDeleted -> {
                 toDeleteTodoTaskGroup = null
+                toDeleteTodoTask = null
                 _showDeleteDialog.value = false
                 sendEvent(
                     UiEvents.ShowSnackBar(
@@ -285,6 +290,7 @@ class TodoTaskViewModel @Inject constructor(
     //DB Functions
 
     private var toDeleteTodoTaskGroup: TodoTaskGroup? = null
+    private var toDeleteTodoTask: TodoTask? = null
 
     private fun deleteTodoTaskGroup() {
         toDeleteTodoTaskGroup?.let { todoTaskGroup ->
@@ -298,19 +304,23 @@ class TodoTaskViewModel @Inject constructor(
         }
     }
 
-    fun deleteTodoTask(todoTask: TodoTask) {
-        viewModelScope.launch {
-            deleteTodoTaskUseCase(todoTask)
-        }.invokeOnCompletion {
-            onEvent(
-                TodoTaskEvent.ItemDeleted(todoTask.todoTaskTitle)
-            )
+    private fun deleteTodoTask() {
+        toDeleteTodoTask?.let { todoTask ->
+            viewModelScope.launch {
+                deleteTodoTaskUseCase(todoTask)
+            }.invokeOnCompletion {
+                onEvent(
+                    TodoTaskEvent.ItemDeleted(todoTask.todoTaskTitle)
+                )
+            }
         }
     }
 
     private fun markTodoTaskAsDone(todoTask: TodoTask) {
         viewModelScope.launch {
             markTodoTaskDoneUseCase(todoTask)
+        }.invokeOnCompletion {
+            getAllTodoTasksUseCase()
         }
     }
 

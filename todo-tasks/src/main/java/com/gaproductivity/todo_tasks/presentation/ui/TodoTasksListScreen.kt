@@ -150,17 +150,20 @@ fun TodoTasksListScreen(
                     0 -> TodoTasksList(
                         modifier = Modifier.fillMaxSize(),
                         fullTodoTasksList = allTodoTasks,
+                        todoNavigation = todoNavigation,
                         todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!
                     )
                     1 -> TodoTasksList(
                         modifier = Modifier.fillMaxSize(),
                         fullTodoTasksList = allTodoTasks,
+                        todoNavigation = todoNavigation,
                         todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!,
                         isPending = false
                     )
                     else -> TodoTasksList(
                         modifier = Modifier.fillMaxSize(),
                         fullTodoTasksList = allTodoTasks,
+                        todoNavigation = todoNavigation,
                         todoTaskGroupId = todoTaskGroup.todoTaskGroupId!!,
                         isPending = false,
                         isMissed = true

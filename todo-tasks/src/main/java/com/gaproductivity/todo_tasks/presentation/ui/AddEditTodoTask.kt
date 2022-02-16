@@ -94,23 +94,6 @@ private fun TodoTaskForm(
         contentPadding = PaddingValues(bottom = 110.dp),
     ) {
 
-        //TodoTask Color
-        item {
-            Text(text = "Select a color for the task")
-            Spacer(modifier = Modifier.height(4.dp))
-            CardColorSelector(
-                value = todoTask.todoTaskColor,
-                onChange = { color ->
-                    viewModel.updateTodoTaskForm(
-                        todoTask.copy(
-                            todoTaskColor = color
-                        )
-                    )
-                }
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-        }
-
         // TodoTask Title
         item {
             Text(text = "Enter the Task Title")
@@ -338,67 +321,6 @@ private fun TodoTaskForm(
                 }
                 Spacer(modifier = Modifier.height(12.dp))
             }
-        }
-    }
-}
-
-@Composable
-fun CardColorSelector(
-    value: Int,
-    onChange: (Int) -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly
-    ) {
-        val modifierSelected = Modifier.border(
-            width = 2.dp,
-            color = primaryColor,
-            shape = CircleShape
-        )
-        val redSelected = value == CardColors.RED
-        val blueSelected = value == CardColors.BLUE
-        val greenSelected = value == CardColors.GREEN
-        val redButtonModifier = if (redSelected) modifierSelected else Modifier
-        val blueButtonModifier = if (blueSelected) modifierSelected else Modifier
-        val greenButtonModifier = if (greenSelected) modifierSelected else Modifier
-
-        Button(
-            onClick = {
-                onChange(CardColors.RED)
-            },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(CardColors.RED),
-            ),
-            shape = CircleShape,
-            modifier = redButtonModifier.size(36.dp)
-        ) {
-
-        }
-        Button(
-            onClick = {
-                onChange(CardColors.BLUE)
-            },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(CardColors.BLUE)
-            ),
-            shape = CircleShape,
-            modifier = blueButtonModifier.size(36.dp)
-        ) {
-
-        }
-        Button(
-            onClick = {
-                onChange(CardColors.GREEN)
-            },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(CardColors.GREEN)
-            ),
-            shape = CircleShape,
-            modifier = greenButtonModifier.size(36.dp)
-        ) {
-
         }
     }
 }

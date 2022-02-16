@@ -7,10 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.DoItAllTheme
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
-import com.gaproductivity.doitall.presentation.components.destinations.AddEditTodoTaskNavDestination
-import com.gaproductivity.doitall.presentation.components.destinations.AddTodoTaskGroupNavDestination
-import com.gaproductivity.doitall.presentation.components.destinations.EditTodoTaskGroupNavDestination
-import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksListNavDestination
+import com.gaproductivity.doitall.presentation.components.destinations.*
 import com.gaproductivity.doitall.presentation.screens.HomeScreen
 import com.gaproductivity.doitall.presentation.screens.SettingsScreen
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
@@ -143,10 +140,33 @@ fun EditTodoTaskGroupNav(
 
 @Composable
 @Destination(style = DefaultNavAnimation::class)
-fun AddEditTodoTaskNav(
+fun AddTodoTaskNav(
     navigator: DestinationsNavigator,
     mainViewModel: MainViewModel = hiltViewModel(),
-    todoTask: TodoTask? = null,
+    todoTaskGroupId: Int
+) {
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        AddEditTodoTask(
+            navigator = navigator,
+            initialTodoTask = null,
+            todoTaskGroupId = todoTaskGroupId,
+            titleBar = {
+                TopBar(
+                    screenTitle = "Add New Todo Task",
+                    navigator = navigator
+                )
+            }
+        )
+    }
+}
+
+
+@Composable
+@Destination(style = DefaultNavAnimation::class)
+fun EditTodoTaskNav(
+    navigator: DestinationsNavigator,
+    mainViewModel: MainViewModel = hiltViewModel(),
+    todoTask: TodoTask,
     todoTaskGroupId: Int
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
@@ -156,13 +176,14 @@ fun AddEditTodoTaskNav(
             todoTaskGroupId = todoTaskGroupId,
             titleBar = {
                 TopBar(
-                    screenTitle = if (todoTask == null) "Add New Todo Task" else "Edit Todo Task",
+                    screenTitle = "Edit Todo Task",
                     navigator = navigator
                 )
             }
         )
     }
 }
+
 
 
 fun navigateTodoTask(
@@ -182,12 +203,12 @@ fun navigateTodoTask(
         }
         is TodoNavigation.ToAddNewTodoTask -> {
             navigator.navigate(
-                AddEditTodoTaskNavDestination(todoTaskGroupId = todoNavigation.todoTaskGroupId)
+                AddTodoTaskNavDestination(todoTaskGroupId = todoNavigation.todoTaskGroupId)
             )
         }
         is TodoNavigation.ToEditTodoTask -> {
             navigator.navigate(
-                AddEditTodoTaskNavDestination(
+                EditTodoTaskNavDestination(
                     todoTaskGroupId = todoNavigation.todoTaskGroupId,
                     todoTask = todoNavigation.todoTask
                 )

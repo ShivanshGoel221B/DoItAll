@@ -63,7 +63,7 @@ fun TodoTasksListOptions(
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "Rename",
+                    text = "Edit",
                     fontSize = 10.sp,
                     color = MaterialTheme.colors.primary
                 )
