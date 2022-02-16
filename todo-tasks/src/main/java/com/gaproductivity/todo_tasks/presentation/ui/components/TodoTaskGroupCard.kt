@@ -106,7 +106,7 @@ fun TodoTaskGroupCard(
                 modifier = Modifier
                     .padding(
                         horizontal = 8.dp
-                    ).height(180.dp)
+                    ).heightIn(100.dp, 180.dp)
                     .fillMaxWidth()
                     .background(color = Color.Transparent),
                 verticalAlignment = Alignment.CenterVertically

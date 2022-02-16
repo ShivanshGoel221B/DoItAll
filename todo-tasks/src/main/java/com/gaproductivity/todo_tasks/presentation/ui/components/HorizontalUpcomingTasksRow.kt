@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.primaryColor
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.core.domain.Converters
@@ -41,7 +42,8 @@ fun HorizontalUpcomingTaskRow(
                         todoNavigation(
                             TodoNavigation.ToEditTodoTask(todoTask, todoTask.todoTaskGroupId)
                         )
-                    }
+                    },
+                    backgroundColor = MaterialTheme.colors.cardColor
                 ) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
