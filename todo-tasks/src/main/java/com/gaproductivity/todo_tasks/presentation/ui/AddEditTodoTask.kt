@@ -2,15 +2,11 @@ package com.gaproductivity.todo_tasks.presentation.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,13 +18,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.gaproductivity.components.presentation.theme.*
+import com.gaproductivity.components.presentation.theme.primaryTranslucent
+import com.gaproductivity.components.presentation.theme.textColor
+import com.gaproductivity.components.presentation.theme.translucentGrayColor
 import com.gaproductivity.components.presentation.ui.datePickerDialog
 import com.gaproductivity.components.presentation.ui.timePickerDialog
 import com.gaproductivity.core.domain.Converters
 import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.core.domain.Validators
-import com.gaproductivity.core.domain.constants.CardColors
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
@@ -61,16 +58,15 @@ fun AddEditTodoTask(
         modifier = modifier.fillMaxSize(),
         topBar = titleBar,
         floatingActionButton = {
-            Button(
+            FloatingActionButton(
                 onClick = {
                     onEvent(TodoTaskEvent.SubmitTodoTask)
                 },
-                shape = RoundedCornerShape(25.dp)
             ) {
                 Text(
-                    text = "Create",
+                    text = if(initialTodoTask == null) "CREATE" else "UPDATE",
                     color = Color.White,
-                    modifier = Modifier.padding(horizontal = 12.dp),
+                    modifier = Modifier.padding(horizontal = 18.dp),
                 )
             }
         }
@@ -83,7 +79,6 @@ fun AddEditTodoTask(
 private fun TodoTaskForm(
     viewModel: TodoTaskViewModel
 ) {
-    val todoTaskEvent = viewModel::onEvent
     val todoTask = viewModel.addEditTodoTask.value
 
     LazyColumn(
