@@ -35,7 +35,7 @@ fun HorizontalUpcomingTaskRow(
                 Spacer(modifier = Modifier.width(6.dp))
 
                 Card(
-                    elevation = 10.dp,
+                    elevation = 6.dp,
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.clickable {
                         todoNavigation(

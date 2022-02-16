@@ -18,7 +18,7 @@ val orange = Color(0xFFFF5722)
 val textColorLight = Color(0xFFFFFFFF)
 val textColorDark = Color(0xFF383A3A)
 
-val cardColorLight = Color(0xFFFFFFFF)
+val cardColorLight = Color(0xFFF3F3F3)
 val cardColorDark = Color(0xFF232232)
 
 val translucentGrayColor = Color(0x803D3D3D)
