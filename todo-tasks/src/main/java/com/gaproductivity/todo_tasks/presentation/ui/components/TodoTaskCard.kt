@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.orange
 import com.gaproductivity.components.presentation.theme.primaryColor
+import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.core.domain.Converters
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.isMissed
@@ -53,7 +54,8 @@ fun TodTaskCard(
                         .padding(horizontal = 6.dp)
                         .clickable { todoNavigation(TodoNavigation.ToTodoTask(todoTask.todoTaskId!!)) },
                     text = todoTask.todoTaskTitle,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colors.textColor
                 )
                 IconButton(
                     onClick = { expanded = !expanded },
@@ -62,7 +64,8 @@ fun TodTaskCard(
                     Icon(
                         imageVector = if (expanded) Icons.Default.ArrowDropUp
                         else Icons.Default.ArrowDropDown,
-                        contentDescription = "Expand/Collapse Button"
+                        contentDescription = "Expand/Collapse Button",
+                        tint = MaterialTheme.colors.textColor
                     )
                 }
             }
@@ -76,7 +79,8 @@ fun TodTaskCard(
                         modifier = Modifier
                             .padding(horizontal = 12.dp)
                             .clickable { todoNavigation(TodoNavigation.ToTodoTask(todoTask.todoTaskId!!)) },
-                        text = todoTask.todoTaskDescription
+                        text = todoTask.todoTaskDescription,
+                        color = MaterialTheme.colors.textColor
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -121,7 +125,8 @@ fun TodTaskCard(
                         Text(
                             modifier = Modifier.padding(horizontal = 6.dp),
                             text = "No Deadline",
-                            fontSize = 14.sp
+                            fontSize = 14.sp,
+                            color = MaterialTheme.colors.textColor
                         )
                     else
                         Text(
@@ -165,7 +170,8 @@ fun TodTaskCard(
                 Icon(
                     imageVector = notificationIcon,
                     contentDescription = "Reminder",
-                    modifier = Modifier.size(26.dp)
+                    modifier = Modifier.size(26.dp),
+                    tint = MaterialTheme.colors.textColor
                 )
 
             }

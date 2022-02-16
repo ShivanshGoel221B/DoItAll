@@ -71,7 +71,8 @@ fun TodoTaskGroupCard(
                         if (viewOptions) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown
                     Icon(
                         imageVector = icon,
-                        contentDescription = "Show More"
+                        contentDescription = "Show More",
+                        tint = MaterialTheme.colors.textColor
                     )
                 }
             }
