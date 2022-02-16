@@ -130,10 +130,11 @@ class TodoTaskViewModel @Inject constructor(
         }
     }
 
-    fun getPendingTodoTasks(allTodoTasks: List<TodoTask>): List<TodoTask> {
+    fun getUpcomingTasks(allTodoTasks: List<TodoTask>): List<TodoTask> {
         return filterTodoTasksUseCase(
             allTodoTasks,
-            TodoTaskFilter.FilterByPending(true)
+            TodoTaskFilter.FilterByPending(true),
+            TodoTaskFilter.FilterByDeadline()
         )
     }
 

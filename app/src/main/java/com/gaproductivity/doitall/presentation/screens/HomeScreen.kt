@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.gaproductivity.doitall.presentation.components.PendingTasks
+import com.gaproductivity.doitall.presentation.components.UpcomingTasks
 import com.gaproductivity.doitall.presentation.components.TopBar
 import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksGroupsScreenNavDestination
 import com.gaproductivity.todo_tasks.presentation.ui.components.TodoNavigation
@@ -43,9 +43,7 @@ fun HomeScreen(
         ) {
             TopBar(navigator = navigator)
         }
-        PendingTasks(
-            todoNavigation = todoNavigation
-        )
+        UpcomingTasks(todoNavigation = todoNavigation)
         Spacer(modifier = Modifier.size(2.dp))
         Row(
             horizontalArrangement = Arrangement.End,

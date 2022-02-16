@@ -24,7 +24,7 @@ import com.gaproductivity.database.entity.isMissed
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
 
 @Composable
-fun TodTaskCard(
+fun TodoTaskCard(
     modifier: Modifier = Modifier,
     todoNavigation: (TodoNavigation) -> Unit,
     todoTaskEvent: (TodoTaskEvent) -> Unit,
@@ -146,7 +146,7 @@ fun TodTaskCard(
                             }
                         )
 
-                    if (todoTask.doneAt !== null)
+                    if (todoTask.doneAt != null)
                         Text(
                             modifier = Modifier.padding(horizontal = 6.dp),
                             text = "Done At: ${
