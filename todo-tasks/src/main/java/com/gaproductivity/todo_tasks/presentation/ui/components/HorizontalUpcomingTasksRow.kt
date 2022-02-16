@@ -15,7 +15,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.cardColor
-import com.gaproductivity.components.presentation.theme.primaryColor
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.core.domain.Converters
 import com.gaproductivity.database.entity.TodoTask
@@ -70,7 +69,7 @@ fun HorizontalUpcomingTaskRow(
                                 Divider()
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = "${Converters.getFormattedDate(todoTask.deadline!!)}(${
+                                    text = "${Converters.getFormattedDate(todoTask.deadline!!)} (${
                                         Converters.getFormattedTime(
                                             todoTask.deadline!!
                                         )
