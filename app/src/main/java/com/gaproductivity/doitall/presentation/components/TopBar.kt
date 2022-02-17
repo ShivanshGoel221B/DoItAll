@@ -1,7 +1,6 @@
 package com.gaproductivity.doitall.presentation.components
 
 import android.app.Activity
-import android.app.Application
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
