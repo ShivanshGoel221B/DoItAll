@@ -104,7 +104,6 @@ fun TopBar(
 
         AnimatedVisibility(visible = showMenu) {
             Divider()
-            Spacer(modifier = Modifier.height(8.dp))
             MainMenu(modifier = Modifier.fillMaxWidth(), navigator = navigator)
         }
     }
