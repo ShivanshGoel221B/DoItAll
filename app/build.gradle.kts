@@ -68,6 +68,7 @@ dependencies {
 
     implementation(project(Modules.classGroup))
     implementation(project(Modules.todoTasks))
+    implementation(project(Modules.notes))
 
     implementation(AndroidX.lifeCycle)
 

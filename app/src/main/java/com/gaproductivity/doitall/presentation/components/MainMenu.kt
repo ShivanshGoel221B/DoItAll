@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
 import com.gaproductivity.components.presentation.theme.translucentGrayColor
+import com.gaproductivity.doitall.presentation.components.destinations.SimpleNoteBookNavDestination
 import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksGroupsScreenNavDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -53,7 +54,7 @@ fun MainMenu(
         ) {
             MenuButton(icon = Icons.Default.Notes, text = "Simple Notes") {
                 navigator.navigate(
-                    TodoTasksGroupsScreenNavDestination
+                    SimpleNoteBookNavDestination
                 )
             }
             MenuButton(icon = Icons.Default.DynamicFeed, text = "Dynamic Notes") {

@@ -11,6 +11,7 @@ import com.gaproductivity.doitall.presentation.components.destinations.*
 import com.gaproductivity.doitall.presentation.screens.HomeScreen
 import com.gaproductivity.doitall.presentation.screens.SettingsScreen
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
+import com.gaproductivity.simple_note.presentation.ui.screen.NoteBookScreen
 import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTask
 import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.ui.TodoTasksGroupsListScreen
@@ -181,6 +182,24 @@ fun EditTodoTaskNav(
                 )
             }
         )
+    }
+}
+
+@Composable
+@Destination(style = DefaultNavAnimation::class)
+fun SimpleNoteBookNav(
+    navigator: DestinationsNavigator,
+    mainViewModel: MainViewModel = hiltViewModel()
+){
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        NoteBookScreen(
+            navigator = navigator
+        ) {
+            TopBar(
+                navigator = navigator,
+                screenTitle = "Simple Notebooks"
+            )
+        }
     }
 }
 
