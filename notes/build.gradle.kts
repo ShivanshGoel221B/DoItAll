@@ -108,5 +108,5 @@ dependencies {
     debugImplementation(ComposeTest.uiTestManifest)
 
     //Markdown
-    implementation(Custom.markDownView)
+//    implementation(Custom.markDownView)
 }
