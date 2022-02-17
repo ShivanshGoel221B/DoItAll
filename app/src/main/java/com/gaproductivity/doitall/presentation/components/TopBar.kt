@@ -25,7 +25,8 @@ fun TopBar(
     modifier: Modifier = Modifier,
     screenTitle: String = "Do It All",
     viewModel: MainViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    onHome: Boolean = false
 ) {
     Row(
         modifier = modifier
@@ -33,21 +34,35 @@ fun TopBar(
             .background(color = Color.Transparent),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = {
-            viewModel.switchMode()
-        }) {
-            Icon(
-                imageVector = Icons.Default.Menu,
-                tint = MaterialTheme.colors.textColor,
-                contentDescription = "Switch Mode"
-            )
-        }
+        if (onHome)
+            IconButton(onClick = {
+                viewModel.exitApp()
+            }) {
+                Icon(
+                    imageVector = Icons.Default.ExitToApp,
+                    tint = MaterialTheme.colors.textColor,
+                    contentDescription = "Exit"
+                )
+            }
+        else
+            IconButton(onClick = {
+                viewModel.toggleMenu()
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    tint = MaterialTheme.colors.textColor,
+                    contentDescription = "Menu Icon"
+                )
+            }
+
         Spacer(modifier = Modifier.size(6.dp))
         Text(
             text = screenTitle,
             color = MaterialTheme.colors.textColor,
             fontSize = 18.sp,
-            modifier = Modifier.width(0.dp).weight(1f, true),
+            modifier = Modifier
+                .width(0.dp)
+                .weight(1f, true),
         )
 
         IconButton(onClick = {
@@ -91,7 +106,9 @@ fun SettingsTopBar(
             text = "Settings",
             color = MaterialTheme.colors.textColor,
             fontSize = 18.sp,
-            modifier = Modifier.width(0.dp).weight(1f, true),
+            modifier = Modifier
+                .width(0.dp)
+                .weight(1f, true),
         )
     }
 

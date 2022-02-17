@@ -9,8 +9,12 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gaproductivity.core.domain.UiEvents
+import com.gaproductivity.doitall.domain.event.MenuEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +32,9 @@ class MainViewModel @Inject constructor(
 
     private val _autoBackup: MutableState<Boolean> = mutableStateOf(true)
     val autoBackup: State<Boolean> = _autoBackup
+
+    private val _menuEvent: Channel<MenuEvent> = Channel()
+    val menuEvent = _menuEvent.receiveAsFlow()
 
     init {
         viewModelScope.launch {
@@ -55,6 +62,20 @@ class MainViewModel @Inject constructor(
                 it[autoBackupKey] = !currentPref
                 _autoBackup.value = !currentPref
             }
+        }
+    }
+
+    fun toggleMenu() {
+        sendEvent(MenuEvent.ToggleMenu)
+    }
+
+    fun exitApp() {
+        sendEvent(MenuEvent.ExitApp)
+    }
+
+    private fun sendEvent(event: MenuEvent) {
+        viewModelScope.launch {
+            _menuEvent.send(event)
         }
     }
 }

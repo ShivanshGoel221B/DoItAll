@@ -41,7 +41,7 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
         ) {
-            TopBar(navigator = navigator)
+            TopBar(navigator = navigator, onHome = true)
         }
         UpcomingTasks(todoNavigation = todoNavigation)
         Spacer(modifier = Modifier.size(2.dp))
