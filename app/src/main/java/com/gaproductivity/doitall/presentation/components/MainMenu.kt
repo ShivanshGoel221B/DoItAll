@@ -2,8 +2,6 @@ package com.gaproductivity.doitall.presentation.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
@@ -16,7 +14,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
-import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.components.presentation.theme.translucentGrayColor
 import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksGroupsScreenNavDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
