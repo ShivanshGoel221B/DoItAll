@@ -111,7 +111,7 @@ fun TodoTaskGroupCard(
                     .background(color = Color.Transparent),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                HorizontalTodoTaskRow(
+                HorizontalPendingTodoTaskRow(
                     todoNavigation = todoNavigation,
                     todoTaskGroup = todoTaskGroup
                 )

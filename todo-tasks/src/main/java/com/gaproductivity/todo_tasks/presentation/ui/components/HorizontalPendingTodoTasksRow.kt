@@ -23,7 +23,7 @@ import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.viewmodel.TodoTaskViewModel
 
 @Composable
-fun HorizontalTodoTaskRow(
+fun HorizontalPendingTodoTaskRow(
     modifier: Modifier = Modifier,
     todoNavigation: (TodoNavigation) -> Unit,
     todoTaskGroup: TodoTaskGroup,
@@ -64,7 +64,7 @@ fun HorizontalTodoTaskRow(
                                         )
                                     )
                                 }
-                                .width(100.dp),
+                                .width(120.dp),
                             backgroundColor = MaterialTheme.colors.cardColor
                         ) {
                             Box(
@@ -75,7 +75,8 @@ fun HorizontalTodoTaskRow(
                                     text = todoTask.todoTaskTitle,
                                     color = MaterialTheme.colors.textColor,
                                     overflow = TextOverflow.Ellipsis,
-                                    fontSize = 18.sp
+                                    fontSize = 18.sp,
+                                    modifier = Modifier.padding(horizontal = 4.dp)
                                 )
                             }
                         }
