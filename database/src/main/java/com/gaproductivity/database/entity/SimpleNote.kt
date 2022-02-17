@@ -4,13 +4,17 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gaproductivity.database.Constants
+import java.io.Serializable
 
-@Entity
+@Entity(tableName = Constants.SIMPLE_NOTES)
 data class SimpleNote(
 
     @ColumnInfo(name = Constants.SIMPLE_NOTE_ID)
     @PrimaryKey(autoGenerate = true)
     val simpleNoteId: Int? = null,
+
+    @ColumnInfo(name = Constants.NOTE_BOOK_ID)
+    val noteBookId: Int,
 
     @ColumnInfo(name = Constants.SIMPLE_NOTE_TITLE)
     val noteTitle: String,
@@ -23,4 +27,4 @@ data class SimpleNote(
 
     @ColumnInfo(name = Constants.CREATED_AT)
     val createdAt: Long
-)
+): Serializable
