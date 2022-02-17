@@ -20,5 +20,9 @@ object Constants {
     const val DONE_AT = "doneAt"
     const val DEADLINE = "deadline"
 
+    const val SIMPLE_NOTE_ID = "simpleNoteId"
+    const val SIMPLE_NOTE_TITLE = "simpleNoteTitle"
+    const val SIMPLE_NOTE_CONTENT = "simpleNoteContent"
+
     const val CREATED_AT = "createdAt"
 }
