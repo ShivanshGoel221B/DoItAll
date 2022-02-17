@@ -4,13 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Event
-import androidx.compose.material.icons.filled.QuestionAnswer
-import androidx.compose.material.icons.filled.Task
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
@@ -46,6 +45,28 @@ fun MainMenu(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            MenuButton(icon = Icons.Default.Notes, text = "Simple Notes") {
+                navigator.navigate(
+                    TodoTasksGroupsScreenNavDestination
+                )
+            }
+            MenuButton(icon = Icons.Default.DynamicFeed, text = "Dynamic Notes") {
+                navigator.navigate(
+                    TodoTasksGroupsScreenNavDestination
+                )
+            }
+            MenuButton(icon = Icons.Default.LibraryBooks, text = "Study") {
+                navigator.navigate(
+                    TodoTasksGroupsScreenNavDestination
+                )
+            }
+        }
     }
 }
 
@@ -59,9 +80,13 @@ fun MenuButton(
         elevation = 0.dp,
         border = BorderStroke(width = 0.5.dp, color = translucentGrayColor),
         shape = MaterialTheme.shapes.small,
-        modifier = Modifier.padding(3.dp).size(72.dp)
+        modifier = Modifier
+            .padding(3.dp)
+            .size(72.dp)
     ) {
-        IconButton(onClick = onClick, modifier = Modifier.fillMaxSize().padding(4.dp)) {
+        IconButton(onClick = onClick, modifier = Modifier
+            .fillMaxSize()
+            .padding(4.dp)) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceBetween
@@ -73,7 +98,15 @@ fun MenuButton(
                     tint = primaryTranslucent
                 )
                 Spacer(modifier = Modifier.height(2.dp))
-                Text(text = text, fontSize = 10.sp, color = primaryTranslucent)
+                Text(
+                    text = text,
+                    fontSize = 10.sp,
+                    color = primaryTranslucent,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 2.dp),
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }
