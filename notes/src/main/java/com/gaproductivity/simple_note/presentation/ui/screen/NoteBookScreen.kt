@@ -6,6 +6,7 @@ import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.widget.TextView
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
@@ -18,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import jp.wasabeef.richeditor.RichEditor
 
 
 @Composable
@@ -35,11 +38,18 @@ fun NoteBookScreen(
             FloatingActionButton(onClick = {
 
             }) {
-                Text(
-                    text = "Create New",
-                    modifier = Modifier.padding(horizontal = 14.dp),
-                    color = Color.White
-                )
+                Column {
+                    AndroidView(
+                        modifier = Modifier,
+                        factory = { context ->
+                            RichEditor(context).apply {
+                                setOnTextChangeListener {
+                                    this.setItalic()
+                                }
+                            }
+                        }
+                    )
+                }
             }
         }
     ) {

@@ -1,3 +1,3 @@
 object Custom {
-    const val markDownView = "io.noties.markwon:core:4.6.2"
+    const val textEditor = "jp.wasabeef:richeditor-android:2.0.0"
 }
