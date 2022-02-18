@@ -5,14 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/toolbarView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
     <EditText
         android:layout_margin="16dp"
         android:id="@+id/editor"
-        android:padding="12dp"
+        android:padding="10dp"
+        android:layout_weight="1"
         tools:text="This is test text\n and the is Another text"
         android:background="@drawable/editor_background"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="start"/>
+        android:layout_height="0dp"
+        android:gravity="start"
+        android:autofillHints=""
+        android:inputType="text" />
 
 </LinearLayout>

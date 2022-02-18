@@ -1,4 +1,4 @@
-package com.gaproductivity.editor
+package com.gaproductivity.editor.util
 
 object CustomColors {
     const val primaryColor = -0xde690d
