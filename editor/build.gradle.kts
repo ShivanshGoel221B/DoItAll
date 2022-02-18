@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp") version "1.6.10-1.0.2"
 }
 
 kotlin {
@@ -55,14 +54,10 @@ android {
 }
 
 dependencies {
-
-    implementation(project(Modules.database))
     implementation(project(Modules.core))
     implementation(project(Modules.components))
-    implementation(project(Modules.editor))
 
     implementation(AndroidX.core)
-    implementation(AndroidX.datastore)
 
     implementation(AndroidX.lifeCycle)
 
@@ -74,10 +69,6 @@ dependencies {
     implementation(Hilt.android)
     kapt(Hilt.compiler)
     kaptAndroidTest(Hilt.compiler)
-
-    //Room
-    implementation(Room.room)
-    kapt(Room.compiler)
 
     //Compose
     implementation(Compose.ui)
@@ -99,11 +90,6 @@ dependencies {
     //Accompanist
     implementation(Accompanist.systemUiController)
     implementation(Accompanist.pager)
-
-    //Navigation Library
-    implementation(Destinations.core)
-    ksp(Destinations.ksp)
-    implementation(Destinations.animation)
 
     // UI Tests
     androidTestImplementation(ComposeTest.uiTestJunit4)

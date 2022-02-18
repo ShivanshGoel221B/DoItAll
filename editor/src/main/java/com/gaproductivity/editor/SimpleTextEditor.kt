@@ -1,11 +1,10 @@
-package com.gaproductivity.simple_note.presentation.ui.custom
+package com.gaproductivity.editor
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
+import android.widget.EditText
 import android.widget.LinearLayout
-import com.gaproductivity.simple_note.R
-import jp.wasabeef.richeditor.RichEditor
+
 
 class SimpleTextEditor(
     context: Context,
@@ -13,7 +12,7 @@ class SimpleTextEditor(
     defStyleAttr: Int = 0,
 ) : LinearLayout(context, attr, defStyleAttr) {
 
-    private var editor: RichEditor
+    private val editor: EditText
     private var colorPalette: ThemeColors = ThemeColors.DarkColors
 
     init {
@@ -27,10 +26,7 @@ class SimpleTextEditor(
         else
             ThemeColors.LightColors
 
-        editor.run {
-            setEditorFontColor(colorPalette.textColor)
-            setEditorBackgroundColor(colorPalette.background)
-        }
+        editor.setTextColor(colorPalette.textColor)
     }
 }
 

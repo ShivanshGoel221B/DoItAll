@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.textColor
-import com.gaproductivity.simple_note.presentation.ui.custom.SimpleTextEditor
+import com.gaproductivity.editor.SimpleTextEditor
 import com.gaproductivity.simple_note.presentation.viewmodel.NotesViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 

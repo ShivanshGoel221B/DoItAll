@@ -1,4 +1,4 @@
-package com.gaproductivity.simple_note.presentation.ui.custom
+package com.gaproductivity.editor
 
 object CustomColors {
     const val primaryColor = -0xde690d

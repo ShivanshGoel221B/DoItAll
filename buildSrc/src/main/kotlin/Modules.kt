@@ -5,4 +5,5 @@ object Modules {
     const val core = ":core"
     const val components = ":components"
     const val database = ":database"
+    const val editor = ":editor"
 }
