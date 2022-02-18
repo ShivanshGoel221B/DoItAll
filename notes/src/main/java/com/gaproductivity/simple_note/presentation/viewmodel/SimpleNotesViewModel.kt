@@ -7,6 +7,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SimpleNotesViewModel
 @Inject constructor(
-
 ): ViewModel() {
+
+
 }

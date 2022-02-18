@@ -61,6 +61,7 @@ dependencies {
     implementation(project(Modules.components))
 
     implementation(AndroidX.core)
+    implementation(AndroidX.datastore)
 
     implementation(AndroidX.lifeCycle)
 
