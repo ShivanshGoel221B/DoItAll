@@ -13,6 +13,7 @@ import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.components.presentation.theme.translucentGrayColor
 import com.gaproductivity.database.entity.NoteBook
 import com.gaproductivity.editor.SimpleTextEditor
+import com.gaproductivity.simple_note.presentation.ui.components.NotebookList
 import com.gaproductivity.simple_note.presentation.viewmodel.NotesViewModel
 import com.gaproductivity.simple_note.util.NotesNavigation
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -21,6 +22,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun NoteBookScreen(
     navigator: DestinationsNavigator,
+    isRichNotes: Boolean = false,
     notesViewModel: NotesViewModel = hiltViewModel(),
     notesNavigation: (NotesNavigation) -> Unit,
     topBar: @Composable () -> Unit
@@ -56,7 +58,7 @@ fun NoteBookScreen(
                     vertical = 12.dp
                 )
         ) {
-
+            NotebookList(notesNavigation = notesNavigation, isRichNotes = isRichNotes)
         }
     }
 }
