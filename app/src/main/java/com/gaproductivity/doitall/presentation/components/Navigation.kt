@@ -219,14 +219,10 @@ fun AddNewNoteNav(
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
         AddEditNotebook(
-            navigator = navigator,
-            notesNavigation = {
-                navigateNotes(navigator = navigator, notesNavigation = it)
-            },
-            topBar = {
-                TopBar(navigator = navigator, screenTitle = "Add New Notebook")
-            }
-        )
+            navigator = navigator
+        ) {
+            TopBar(navigator = navigator, screenTitle = "Add New Notebook")
+        }
     }
 }
 

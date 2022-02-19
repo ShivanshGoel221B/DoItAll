@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.components.presentation.theme.translucentGrayColor
+import com.gaproductivity.components.presentation.ui.FormInputError
 import com.gaproductivity.components.presentation.ui.datePickerDialog
 import com.gaproductivity.components.presentation.ui.timePickerDialog
 import com.gaproductivity.core.domain.Converters
@@ -114,14 +115,7 @@ private fun TodoTaskForm(
                     Text("Enter Task Title")
                 }
             )
-            viewModel.formTodoTaskTitleError.value?.let { errorMessage ->
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = errorMessage,
-                    color = MaterialTheme.colors.error,
-                    fontSize = 10.sp
-                )
-            }
+            FormInputError(errorMessage = viewModel.formTodoTaskTitleError.value)
         }
 
         //TodoTask Description
@@ -168,15 +162,7 @@ private fun TodoTaskForm(
                 },
                 maxLines = 5
             )
-
-            viewModel.formDescriptionError.value?.let { errorMessage ->
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = errorMessage,
-                    color = MaterialTheme.colors.error,
-                    fontSize = 10.sp
-                )
-            }
+            FormInputError(viewModel.formDescriptionError.value)
         }
 
         //Deadline

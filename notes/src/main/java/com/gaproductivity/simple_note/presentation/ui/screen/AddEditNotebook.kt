@@ -9,11 +9,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
-import com.gaproductivity.components.presentation.theme.translucentGrayColor
+import com.gaproductivity.components.presentation.ui.FormInputError
+import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.database.entity.NoteBook
 import com.gaproductivity.simple_note.presentation.viewmodel.NotesViewModel
-import com.gaproductivity.simple_note.util.NotesNavigation
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.flow.collect
 
 
 @Composable
@@ -21,7 +22,6 @@ fun AddEditNotebook(
     navigator: DestinationsNavigator,
     initialNotebook: NoteBook? = null,
     notesViewModel: NotesViewModel = hiltViewModel(),
-    notesNavigation: (NotesNavigation) -> Unit,
     topBar: @Composable () -> Unit
 ) {
     initialNotebook?.let {
@@ -31,7 +31,14 @@ fun AddEditNotebook(
     val scaffoldState = rememberScaffoldState()
 
     LaunchedEffect(key1 = true) {
-
+        notesViewModel.uiEvents.collect {
+            when(it) {
+                is UiEvents.PopBackStack -> {
+                    navigator.popBackStack()
+                }
+                else -> Unit
+            }
+        }
     }
 
     Scaffold(
@@ -39,11 +46,9 @@ fun AddEditNotebook(
         scaffoldState = scaffoldState,
         topBar = topBar,
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-
-            }) {
+            FloatingActionButton(onClick = notesViewModel::submitNoteForm) {
                 Text(
-                    text = "Create Notebook",
+                    text = "Save Notebook",
                     color = Color.White,
                     modifier = Modifier.padding(horizontal = 14.dp)
                 )
@@ -70,9 +75,10 @@ fun AddEditNotebook(
                     unfocusedBorderColor = primaryTranslucent
                 ),
                 placeholder = {
-                    Text(text = "Enter the name of notebook", color = translucentGrayColor)
+                    Text(text = "Enter the name of notebook")
                 }
             )
+            FormInputError(errorMessage = notesViewModel.formInputNameError.value)
         }
     }
 }
