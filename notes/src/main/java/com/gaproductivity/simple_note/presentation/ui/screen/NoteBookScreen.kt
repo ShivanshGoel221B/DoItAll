@@ -41,7 +41,7 @@ fun NoteBookScreen(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             val textColor = MaterialTheme.colors.textColor
-            SimpleTextEditor()
+
         }
     }
 }

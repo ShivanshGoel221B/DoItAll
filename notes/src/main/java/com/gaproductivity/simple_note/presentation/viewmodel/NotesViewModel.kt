@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gaproductivity.database.entity.NoteBook
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,16 +20,14 @@ class NotesViewModel
     private val dataStore: DataStore<Preferences>
 ): ViewModel() {
 
-    private val darkModeKey = booleanPreferencesKey("darkMode")
-
-    private val _darkMode: MutableState<Boolean> = mutableStateOf(true)
-    val darkMode: State<Boolean> = _darkMode
+    private val _allNotebooks: MutableState<List<NoteBook>> = mutableStateOf(emptyList())
+    val allNotebooks: State<List<NoteBook>>  = _allNotebooks
 
     init {
-        viewModelScope.launch {
-            dataStore.data.collect {
-                _darkMode.value = it[darkModeKey] ?: true
-            }
-        }
+        getAllNoteBooks()
+    }
+
+    private fun getAllNoteBooks() {
+
     }
 }

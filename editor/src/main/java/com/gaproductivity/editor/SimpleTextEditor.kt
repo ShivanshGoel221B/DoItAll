@@ -25,12 +25,6 @@ fun SimpleTextEditor(
             onValueChange = viewModel::updateCurrentString
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(text = buildAnnotatedString {
-
-        })
-
     }
     
 }
