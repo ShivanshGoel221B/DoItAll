@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.textColor
+import com.gaproductivity.components.presentation.ui.CardOptions
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.todo_tasks.presentation.event.TodoTaskEvent
 
@@ -78,7 +79,7 @@ fun TodoTaskGroupCard(
             }
             AnimatedVisibility(visible = viewOptions) {
                 Column {
-                    TodoTasksListOptions(
+                    CardOptions(
                         onDeleteClick = {
                             onEvent(
                                 TodoTaskEvent.DeleteTodoTaskGroupClicked(todoTaskGroup)
