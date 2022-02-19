@@ -8,31 +8,36 @@ import com.ramcosta.composedestinations.spec.DestinationStyle
 @OptIn(ExperimentalAnimationApi::class)
 object DefaultNavAnimation: DestinationStyle.Animated {
 
+    private const val positiveOffset = 1000
+    private const val negativeOffset = -1000
+
+    private const val duration = 400
+
     override fun AnimatedContentScope<NavBackStackEntry>.enterTransition(): EnterTransition {
         return slideInHorizontally(
-            initialOffsetX = { 400 },
-            animationSpec = tween(300)
+            initialOffsetX = { positiveOffset },
+            animationSpec = tween(duration)
         )
     }
 
     override fun AnimatedContentScope<NavBackStackEntry>.exitTransition(): ExitTransition {
         return slideOutHorizontally(
-            targetOffsetX = { -400 },
-            animationSpec = tween(300)
+            targetOffsetX = { negativeOffset },
+            animationSpec = tween(duration)
         )
     }
 
     override fun AnimatedContentScope<NavBackStackEntry>.popEnterTransition(): EnterTransition {
         return slideInHorizontally(
-            initialOffsetX = { -400 },
-            animationSpec = tween(300)
+            initialOffsetX = { negativeOffset },
+            animationSpec = tween(duration)
         )
     }
 
     override fun AnimatedContentScope<NavBackStackEntry>.popExitTransition(): ExitTransition {
         return slideOutHorizontally(
-            targetOffsetX = { 400 },
-            animationSpec = tween(300)
+            targetOffsetX = { positiveOffset },
+            animationSpec = tween(duration)
         )
     }
 }
