@@ -12,4 +12,8 @@ class SimpleViewModel @Inject constructor(): ViewModel() {
     private val _currentString = mutableStateOf("")
     val currentString: State<String> = _currentString
 
+    fun updateCurrentString(updatedString: String) {
+        _currentString.value = updatedString
+    }
+
 }

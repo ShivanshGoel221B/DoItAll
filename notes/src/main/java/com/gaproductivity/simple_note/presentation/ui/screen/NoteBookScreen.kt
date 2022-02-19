@@ -41,14 +41,7 @@ fun NoteBookScreen(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             val textColor = MaterialTheme.colors.textColor
-            AndroidView(
-                modifier = Modifier.fillMaxSize(),
-                factory = { context ->
-                    SimpleTextEditor(context = context).apply {
-                        setTheme(isDark = notesViewModel.darkMode.value)
-                    }
-                }
-            )
+            SimpleTextEditor()
         }
     }
 }
