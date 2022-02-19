@@ -13,7 +13,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
-import com.gaproductivity.components.presentation.theme.translucentGrayColor
 import com.gaproductivity.doitall.presentation.components.destinations.SimpleNoteBookNavDestination
 import com.gaproductivity.doitall.presentation.components.destinations.TodoTasksGroupsScreenNavDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -79,7 +78,7 @@ fun MenuButton(
 ) {
     Card(
         elevation = 0.dp,
-        border = BorderStroke(width = 0.5.dp, color = translucentGrayColor),
+        border = BorderStroke(width = 0.5.dp, color = primaryTranslucent),
         shape = MaterialTheme.shapes.small,
         modifier = Modifier
             .padding(3.dp)
