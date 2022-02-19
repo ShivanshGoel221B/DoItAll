@@ -56,7 +56,7 @@ fun MainMenu(
                     SimpleNoteBookNavDestination
                 )
             }
-            MenuButton(icon = Icons.Default.DynamicFeed, text = "Dynamic Notes") {
+            MenuButton(icon = Icons.Default.DynamicFeed, text = "Rich Notes") {
                 navigator.navigate(
                     TodoTasksGroupsScreenNavDestination
                 )
