@@ -87,9 +87,6 @@ fun NotebookCard(
                             notesNavigation(
                                 NotesNavigation.ToEditNoteBook(noteBook)
                             )
-                        },
-                        onMarkClick = {
-
                         }
                     )
                     Spacer(
