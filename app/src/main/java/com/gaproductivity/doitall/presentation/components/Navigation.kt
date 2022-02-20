@@ -276,7 +276,7 @@ fun EditNoteBookNav(
                 color = MaterialTheme.colors.surface
             )
         AddEditNotebook(navigator = navigator, initialNotebook = notebook) {
-
+            TopBar(navigator = navigator, screenTitle = "Edit ${notebook.noteBookName}")
         }
     }
 }
