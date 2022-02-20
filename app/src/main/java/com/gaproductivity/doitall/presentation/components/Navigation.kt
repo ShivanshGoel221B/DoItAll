@@ -5,6 +5,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.DoItAllTheme
+import com.gaproductivity.database.entity.NoteBook
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.TodoTaskGroup
 import com.gaproductivity.doitall.presentation.components.destinations.*
@@ -30,10 +31,10 @@ fun HomeScreenNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
-        val systemUiController = rememberSystemUiController()
-        systemUiController.setStatusBarColor(
-            color = MaterialTheme.colors.surface
-        )
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         Scaffold {
             HomeScreen(
                 navigator = navigator,
@@ -52,6 +53,10 @@ fun SettingsNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         SettingsScreen(navigator = navigator)
     }
 }
@@ -63,6 +68,10 @@ fun TodoTasksGroupsScreenNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         TodoTasksGroupsListScreen(
             navigator = navigator,
             titleBar = {
@@ -86,6 +95,10 @@ fun TodoTasksListNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         TodoTasksListScreen(
             todoTaskGroup = todoTaskGroup,
             navigator = navigator,
@@ -109,6 +122,10 @@ fun AddTodoTaskGroupNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         AddEditTodoTaskGroup(
             navigator = navigator,
             titleBar = {
@@ -128,6 +145,10 @@ fun EditTodoTaskGroupNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         AddEditTodoTaskGroup(
             navigator = navigator,
             initialTodoTaskGroup = todoTaskGroup,
@@ -149,6 +170,10 @@ fun AddTodoTaskNav(
     todoTaskGroupId: Int
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         AddEditTodoTask(
             navigator = navigator,
             initialTodoTask = null,
@@ -173,6 +198,10 @@ fun EditTodoTaskNav(
     todoTaskGroupId: Int
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         AddEditTodoTask(
             navigator = navigator,
             initialTodoTask = todoTask,
@@ -194,6 +223,10 @@ fun SimpleNoteBookNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         NoteBookScreen(
             navigator = navigator,
             notesNavigation = {
@@ -213,15 +246,37 @@ fun SimpleNoteBookNav(
 
 @Destination(style = DefaultNavAnimation::class)
 @Composable
-fun AddNewNoteNav(
+fun AddNewNoteBookNav(
     navigator: DestinationsNavigator,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
         AddEditNotebook(
             navigator = navigator
         ) {
             TopBar(navigator = navigator, screenTitle = "Add New Notebook")
+        }
+    }
+}
+
+@Destination(style = DefaultNavAnimation::class)
+@Composable
+fun EditNoteBookNav(
+    navigator: DestinationsNavigator,
+    notebook: NoteBook,
+    mainViewModel: MainViewModel = hiltViewModel()
+) {
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController()
+            .setStatusBarColor(
+                color = MaterialTheme.colors.surface
+            )
+        AddEditNotebook(navigator = navigator, initialNotebook = notebook) {
+
         }
     }
 }
@@ -272,10 +327,15 @@ fun navigateNotes(
     navigator: DestinationsNavigator,
     notesNavigation: NotesNavigation
 ) {
-    when(notesNavigation) {
+    when (notesNavigation) {
         is NotesNavigation.ToAddNewNotebook -> {
             navigator.navigate(
-                AddNewNoteNavDestination
+                AddNewNoteBookNavDestination
+            )
+        }
+        is NotesNavigation.ToEditNoteBook -> {
+            navigator.navigate(
+                EditNoteBookNavDestination(notebook = notesNavigation.noteBook)
             )
         }
         else -> Unit

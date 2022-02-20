@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
-import androidx.compose.material.icons.filled.Book
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.MenuBook
+import androidx.compose.material.icons.rounded.MenuBook
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -103,17 +103,15 @@ fun NotebookCard(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(
-                    horizontal = 8.dp,
-                    vertical = 4.dp
-                )
+                modifier = Modifier.padding(8.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Book,
+                    imageVector = Icons.Rounded.MenuBook,
                     contentDescription = "Book",
-                    modifier = Modifier.size(42.dp),
+                    modifier = Modifier.size(48.dp),
                     tint = primaryTranslucent
                 )
+                Spacer(modifier = Modifier.width(4.dp))
                 Text(text = "Test List of notes")
             }
         }
