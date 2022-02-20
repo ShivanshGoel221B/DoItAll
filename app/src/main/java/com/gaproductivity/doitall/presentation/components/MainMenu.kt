@@ -4,7 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,17 +29,17 @@ fun MainMenu(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            MenuButton(icon = Icons.Default.Task, text = "Tasks") {
+            MenuButton(icon = Icons.Rounded.Task, text = "Tasks") {
                 navigator.navigate(
                     TodoTasksGroupsScreenNavDestination
                 )
             }
-            MenuButton(icon = Icons.Default.Event, text = "Attendance") {
+            MenuButton(icon = Icons.Rounded.Event, text = "Attendance") {
                 navigator.navigate(
                     TodoTasksGroupsScreenNavDestination
                 )
             }
-            MenuButton(icon = Icons.Default.QuestionAnswer, text = "Flash Cards") {
+            MenuButton(icon = Icons.Rounded.QuestionAnswer, text = "Flash Cards") {
                 navigator.navigate(
                     TodoTasksGroupsScreenNavDestination
                 )
@@ -51,17 +51,17 @@ fun MainMenu(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            MenuButton(icon = Icons.Default.Notes, text = "Simple Notes") {
+            MenuButton(icon = Icons.Rounded.Notes, text = "Simple Notes") {
                 navigator.navigate(
                     SimpleNoteBookNavDestination
                 )
             }
-            MenuButton(icon = Icons.Default.DynamicFeed, text = "Rich Notes") {
+            MenuButton(icon = Icons.Rounded.DynamicFeed, text = "Rich Notes") {
                 navigator.navigate(
                     TodoTasksGroupsScreenNavDestination
                 )
             }
-            MenuButton(icon = Icons.Default.LibraryBooks, text = "Study") {
+            MenuButton(icon = Icons.Rounded.LibraryBooks, text = "Study") {
                 navigator.navigate(
                     TodoTasksGroupsScreenNavDestination
                 )

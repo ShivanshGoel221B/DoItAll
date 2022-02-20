@@ -6,10 +6,10 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DeleteForever
-import androidx.compose.material.icons.filled.DoneAll
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.RemoveDone
+import androidx.compose.material.icons.rounded.DeleteForever
+import androidx.compose.material.icons.rounded.DoneAll
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.RemoveDone
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +39,7 @@ fun CardOptions(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    imageVector = Icons.Default.DeleteForever,
+                    imageVector = Icons.Rounded.DeleteForever,
                     contentDescription = "Delete",
                     tint = Color.Red
                 )
@@ -60,7 +60,7 @@ fun CardOptions(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    imageVector = Icons.Default.Edit,
+                    imageVector = Icons.Rounded.Edit,
                     contentDescription = "Edit",
                     tint = MaterialTheme.colors.primary
                 )
@@ -81,9 +81,9 @@ fun CardOptions(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 val icon = if (isComplete)
-                    Icons.Default.RemoveDone
+                    Icons.Rounded.RemoveDone
                 else
-                    Icons.Default.DoneAll
+                    Icons.Rounded.DoneAll
 
                 val iconTint = if (isComplete)
                     orange

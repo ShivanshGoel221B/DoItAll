@@ -6,10 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ExitToApp
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,7 +63,7 @@ fun TopBar(
                     viewModel.exitApp()
                 }) {
                     Icon(
-                        imageVector = Icons.Default.ExitToApp,
+                        imageVector = Icons.Rounded.ExitToApp,
                         tint = MaterialTheme.colors.textColor,
                         contentDescription = "Exit"
                     )
@@ -73,7 +73,7 @@ fun TopBar(
                     viewModel.toggleMenu()
                 }) {
                     Icon(
-                        imageVector = Icons.Default.Menu,
+                        imageVector = Icons.Rounded.Menu,
                         tint = MaterialTheme.colors.textColor,
                         contentDescription = "Menu Icon"
                     )
@@ -95,7 +95,7 @@ fun TopBar(
                 )
             }) {
                 Icon(
-                    imageVector = Icons.Default.Settings,
+                    imageVector = Icons.Rounded.Settings,
                     tint = MaterialTheme.colors.textColor,
                     contentDescription = "Setting Icon"
                 )
@@ -126,7 +126,7 @@ fun SettingsTopBar(
             navigator.popBackStack()
         }) {
             Icon(
-                imageVector = Icons.Default.ArrowBack,
+                imageVector = Icons.Rounded.ArrowBack,
                 tint = MaterialTheme.colors.textColor,
                 contentDescription = "Go Back"
             )
