@@ -17,22 +17,42 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
 import com.gaproductivity.components.presentation.theme.textColor
+import com.gaproductivity.components.presentation.ui.PinnedNoteRow
 import com.gaproductivity.database.entity.NoteBook
 import com.gaproductivity.simple_note.presentation.ui.components.util.NotebookCardOptions
+import com.gaproductivity.simple_note.presentation.viewmodel.SimpleNotesViewModel
 import com.gaproductivity.simple_note.util.NotesNavigation
 
 @Composable
 fun NotebookCard(
     modifier: Modifier = Modifier,
     noteBook: NoteBook,
+    isSimpleNote: Boolean = true,
+    simpleNotesViewModel: SimpleNotesViewModel = hiltViewModel(),
     notesNavigation: (NotesNavigation) -> Unit
 ) {
 
     var viewOptions by remember {
         mutableStateOf(false)
+    }
+
+    val pinnedNotes by remember {
+        mutableStateOf(
+            simpleNotesViewModel.getPinnedSimpleNotes(
+                simpleNotesViewModel.getSimpleNotesByNotebook(
+                    noteBookId = noteBook.noteBookId!!
+                )
+            )
+        )
+    }
+
+    val pinnedMap: HashMap<Int, String> = HashMap()
+    pinnedNotes.forEach { simpleNote ->
+        pinnedMap[simpleNote.noteBookId] = simpleNote.noteTitle
     }
 
     Card(
@@ -108,7 +128,15 @@ fun NotebookCard(
                     tint = primaryTranslucent
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "Test List of notes")
+                if (pinnedNotes.isEmpty())
+                    Text(text = "No Pinned Notes Here")
+                else
+                    PinnedNoteRow(
+                        noteIdNamesMap = pinnedMap,
+                        onClick = {
+
+                        }
+                    )
             }
         }
     }
