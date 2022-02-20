@@ -2,13 +2,10 @@ package com.gaproductivity.simple_note.domain.use_case.notebook
 
 import com.gaproductivity.database.entity.NoteBook
 import com.gaproductivity.simple_note.domain.filter.NotebookFilter
-import com.gaproductivity.simple_note.domain.repository.NotebookRepository
 import javax.inject.Inject
 
 class FilterNotebooksUseCase
-@Inject constructor(
-    private val repository: NotebookRepository
-) {
+@Inject constructor() {
 
     operator fun invoke(
         allNotebooks: List<NoteBook>,
@@ -27,7 +24,9 @@ class FilterNotebooksUseCase
         return filteredList
     }
 
-    private fun nameMatch(noteBook: NoteBook, searchName: String): Boolean {
+    private fun nameMatch(noteBook: NoteBook, searchName: String?): Boolean {
+        if (searchName == null)
+            return true
         if (noteBook.noteBookName.lowercase() == searchName.lowercase())
             return true
         if (noteBook.noteBookName.lowercase().contains(searchName.lowercase()))
