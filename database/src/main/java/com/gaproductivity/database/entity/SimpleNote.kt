@@ -22,6 +22,9 @@ data class SimpleNote(
     @ColumnInfo(name = Constants.SIMPLE_NOTE_CONTENT)
     val noteContent: String,
 
+    @ColumnInfo(name = Constants.IS_PINNED)
+    val isPinned: Boolean = false,
+
     @ColumnInfo(name = Constants.IS_SYNCED)
     var isSynced: Boolean = false,
 
