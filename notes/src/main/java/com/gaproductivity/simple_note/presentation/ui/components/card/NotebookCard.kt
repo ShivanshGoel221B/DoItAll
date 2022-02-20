@@ -7,10 +7,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.MenuBook
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.rounded.MenuBook
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,8 +20,8 @@ import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
 import com.gaproductivity.components.presentation.theme.textColor
-import com.gaproductivity.components.presentation.ui.CardOptions
 import com.gaproductivity.database.entity.NoteBook
+import com.gaproductivity.simple_note.presentation.ui.components.util.NotebookCardOptions
 import com.gaproductivity.simple_note.util.NotesNavigation
 
 @Composable
@@ -80,7 +79,7 @@ fun NotebookCard(
             }
             AnimatedVisibility(visible = viewOptions) {
                 Column {
-                    CardOptions(
+                    NotebookCardOptions(
                         onDeleteClick = {
 
                         },

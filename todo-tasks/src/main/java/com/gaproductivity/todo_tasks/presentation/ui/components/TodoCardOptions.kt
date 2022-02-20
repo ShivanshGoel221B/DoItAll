@@ -1,4 +1,4 @@
-package com.gaproductivity.components.presentation.ui
+package com.gaproductivity.todo_tasks.presentation.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.gaproductivity.components.presentation.theme.orange
 
 @Composable
-fun CardOptions(
+fun TodoCardOptions(
     modifier: Modifier = Modifier,
     onDeleteClick: () -> Unit,
     onEditClick: () -> Unit,

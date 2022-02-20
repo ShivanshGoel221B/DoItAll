@@ -21,7 +21,6 @@ import com.gaproductivity.components.presentation.theme.cardColor
 import com.gaproductivity.components.presentation.theme.orange
 import com.gaproductivity.components.presentation.theme.primaryColor
 import com.gaproductivity.components.presentation.theme.textColor
-import com.gaproductivity.components.presentation.ui.CardOptions
 import com.gaproductivity.core.domain.Converters
 import com.gaproductivity.database.entity.TodoTask
 import com.gaproductivity.database.entity.isMissed
@@ -89,7 +88,7 @@ fun TodoTaskCard(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    CardOptions(
+                    TodoCardOptions(
                         onDeleteClick = {
                             todoTaskEvent(
                                 TodoTaskEvent.DeleteTodoTaskClicked(todoTask)
