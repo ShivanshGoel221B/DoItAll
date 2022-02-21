@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.cardColor
+import com.gaproductivity.components.presentation.theme.primaryColor
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.components.presentation.ui.PinnedNoteRow
@@ -124,19 +125,47 @@ fun NotebookCard(
                 Icon(
                     imageVector = Icons.Rounded.MenuBook,
                     contentDescription = "Book",
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(64.dp),
                     tint = primaryTranslucent
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                if (pinnedNotes.isEmpty())
-                    Text(text = "No Pinned Notes Here")
-                else
-                    PinnedNoteRow(
-                        noteIdNamesMap = pinnedMap,
-                        onClick = {
 
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth().height(90.dp)
+                    ) {
+                        if (pinnedNotes.isEmpty())
+                            Text(text = "No Pinned Notes Here")
+                        else
+                            PinnedNoteRow(
+                                noteIdNamesMap = pinnedMap,
+                                onClick = {
+
+                                }
+                            )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextButton(onClick = {
+
+                        }) {
+                            Text(text = "View All", color = primaryColor)
                         }
-                    )
+                    }
+                }
+
             }
         }
     }
