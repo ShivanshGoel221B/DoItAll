@@ -291,9 +291,28 @@ fun SimpleNotesListNav(
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
         rememberSystemUiController().setStatusBarColor(color = MaterialTheme.colors.surface)
-        SimpleNotesListScreen(navigator = navigator, notebookId = notebookId, topBar = {
-            TopBar(navigator = navigator, screenTitle = "Simple Notes")
-        })
+        SimpleNotesListScreen(
+            notebookId = notebookId,
+            topBar = {
+                TopBar(navigator = navigator, screenTitle = "Simple Notes")
+            },
+            notesNavigation = {
+                navigateNotes(navigator = navigator, notesNavigation = it)
+            }
+        )
+    }
+}
+
+
+@Destination(style = DefaultNavAnimation::class)
+@Composable
+fun AddNewSimpleNoteNav(
+    navigator: DestinationsNavigator,
+    mainViewModel: MainViewModel = hiltViewModel()
+) {
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController().setStatusBarColor(color = MaterialTheme.colors.surface)
+
     }
 }
 
@@ -357,6 +376,11 @@ fun navigateNotes(
         is NotesNavigation.ToSimpleNotesList -> {
             navigator.navigate(
                 SimpleNotesListNavDestination(notesNavigation.notebookId)
+            )
+        }
+        is NotesNavigation.ToAddNewSimpleNote -> {
+            navigator.navigate(
+                AddNewSimpleNoteNavDestination
             )
         }
         else -> Unit

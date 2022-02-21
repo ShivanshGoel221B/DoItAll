@@ -12,13 +12,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.notes.presentation.viewmodel.SimpleNotesViewModel
+import com.gaproductivity.notes.util.NotesNavigation
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 fun SimpleNotesListScreen(
-    navigator: DestinationsNavigator,
     notebookId: Int,
     topBar: @Composable () -> Unit,
+    notesNavigation: (NotesNavigation) -> Unit,
     simpleNotesViewModel: SimpleNotesViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -36,7 +37,9 @@ fun SimpleNotesListScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = topBar,
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(onClick = {
+                notesNavigation(NotesNavigation.ToAddNewSimpleNote)
+            }) {
                 Text(
                     text = "Create New",
                     color = Color.White,
