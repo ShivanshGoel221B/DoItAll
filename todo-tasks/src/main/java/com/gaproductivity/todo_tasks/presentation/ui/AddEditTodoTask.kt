@@ -146,12 +146,11 @@ private fun TodoTaskForm(
                 shape = MaterialTheme.shapes.medium,
                 value = todoTask.todoTaskDescription,
                 onValueChange = {
-                    if (
-                        it.length <= Validators.MAX_DESCRIPTION_LENGTH
-                    )
+                    if (it.length <= Validators.MAX_DESCRIPTION_LENGTH) {
                         viewModel.updateTodoTaskForm(
                             todoTask.copy(todoTaskDescription = it)
                         )
+                    }
                 },
                 isError = viewModel.formDescriptionError.value != null,
                 textStyle = TextStyle(

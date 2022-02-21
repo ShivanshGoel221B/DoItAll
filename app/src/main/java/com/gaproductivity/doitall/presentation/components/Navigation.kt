@@ -13,6 +13,7 @@ import com.gaproductivity.doitall.presentation.screens.HomeScreen
 import com.gaproductivity.doitall.presentation.screens.SettingsScreen
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
 import com.gaproductivity.notes.presentation.ui.screen.AddEditNotebook
+import com.gaproductivity.notes.presentation.ui.screen.AddEditSimpleNote
 import com.gaproductivity.notes.presentation.ui.screen.NoteBookScreen
 import com.gaproductivity.notes.presentation.ui.screen.SimpleNotesListScreen
 import com.gaproductivity.notes.util.NotesNavigation
@@ -312,7 +313,9 @@ fun AddNewSimpleNoteNav(
 ) {
     DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
         rememberSystemUiController().setStatusBarColor(color = MaterialTheme.colors.surface)
-
+        AddEditSimpleNote(navigator = navigator, topBar = {
+            TopBar(navigator = navigator, screenTitle = "Add Simple Note")
+        })
     }
 }
 

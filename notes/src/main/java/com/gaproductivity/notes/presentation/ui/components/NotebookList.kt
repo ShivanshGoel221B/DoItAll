@@ -1,5 +1,6 @@
 package com.gaproductivity.notes.presentation.ui.components
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,7 +22,10 @@ fun NotebookList(
     notesNavigation: (NotesNavigation) -> Unit
 ) {
 
-    LazyColumn(modifier = modifier.fillMaxWidth()) {
+    LazyColumn(
+        modifier = modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(bottom = 110.dp)
+    ) {
         notesViewModel.allNotebooks.value.forEach { noteBook ->
             item {
                 Spacer(modifier = Modifier.height(4.dp))
