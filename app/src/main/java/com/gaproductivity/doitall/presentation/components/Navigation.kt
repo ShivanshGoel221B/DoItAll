@@ -14,6 +14,7 @@ import com.gaproductivity.doitall.presentation.screens.SettingsScreen
 import com.gaproductivity.doitall.presentation.viewmodel.MainViewModel
 import com.gaproductivity.notes.presentation.ui.screen.AddEditNotebook
 import com.gaproductivity.notes.presentation.ui.screen.NoteBookScreen
+import com.gaproductivity.notes.presentation.ui.screen.SimpleNotesListScreen
 import com.gaproductivity.notes.util.NotesNavigation
 import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTask
 import com.gaproductivity.todo_tasks.presentation.ui.AddEditTodoTaskGroup
@@ -281,6 +282,21 @@ fun EditNoteBookNav(
     }
 }
 
+@Destination(style = DefaultNavAnimation::class)
+@Composable
+fun SimpleNotesListNav(
+    navigator: DestinationsNavigator,
+    notebookId: Int,
+    mainViewModel: MainViewModel = hiltViewModel()
+) {
+    DoItAllTheme(darkTheme = mainViewModel.darkMode.value) {
+        rememberSystemUiController().setStatusBarColor(color = MaterialTheme.colors.surface)
+        SimpleNotesListScreen(navigator = navigator, notebookId = notebookId, topBar = {
+            TopBar(navigator = navigator, screenTitle = "Simple Notes")
+        })
+    }
+}
+
 
 fun navigateTodoTask(
     navigator: DestinationsNavigator,
@@ -336,6 +352,11 @@ fun navigateNotes(
         is NotesNavigation.ToEditNoteBook -> {
             navigator.navigate(
                 EditNoteBookNavDestination(notebook = notesNavigation.noteBook)
+            )
+        }
+        is NotesNavigation.ToSimpleNotesList -> {
+            navigator.navigate(
+                SimpleNotesListNavDestination(notesNavigation.notebookId)
             )
         }
         else -> Unit

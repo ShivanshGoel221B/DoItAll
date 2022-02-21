@@ -159,7 +159,7 @@ fun NotebookCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         TextButton(onClick = {
-
+                            notesNavigation(NotesNavigation.ToSimpleNotesList(noteBook.noteBookId!!))
                         }) {
                             Text(text = "View All", color = primaryColor)
                         }
