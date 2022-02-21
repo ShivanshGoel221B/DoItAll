@@ -15,10 +15,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaproductivity.components.presentation.theme.primaryTranslucent
 import com.gaproductivity.components.presentation.theme.textColor
 import com.gaproductivity.components.presentation.ui.FormInputError
+import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.core.domain.Validators
 import com.gaproductivity.database.entity.SimpleNote
 import com.gaproductivity.notes.presentation.viewmodel.SimpleNotesViewModel
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun AddEditSimpleNote(
@@ -35,14 +37,19 @@ fun AddEditSimpleNote(
     val addEditSimpleNote = simpleNotesViewModel.addEditSimpleNote.value
 
     LaunchedEffect(key1 = true) {
-
+        simpleNotesViewModel.uiEvents.collect {
+            if (it is UiEvents.PopBackStack)
+                navigator.popBackStack()
+        }
     }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = topBar,
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(onClick = {
+                simpleNotesViewModel.submitSimpleNoteForm()
+            }) {
                 Text(
                     text = "Save Note",
                     modifier = Modifier.padding(horizontal = 14.dp),
@@ -108,7 +115,7 @@ fun AddEditSimpleNote(
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(400.dp),
+                        .height(350.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         unfocusedBorderColor = primaryTranslucent
                     ),

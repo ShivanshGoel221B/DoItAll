@@ -5,12 +5,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gaproductivity.core.domain.UiEvents
 import com.gaproductivity.core.domain.Validators
 import com.gaproductivity.database.entity.SimpleNote
 import com.gaproductivity.notes.domain.filter.SimpleNotesFilter
 import com.gaproductivity.notes.domain.use_case.simple.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -29,6 +32,9 @@ class SimpleNotesViewModel
 
     private val _allSimpleNotes = mutableStateOf(emptyList<SimpleNote>())
     val allSimpleNote: State<List<SimpleNote>> = _allSimpleNotes
+
+    private val _uiEvents: Channel<UiEvents> = Channel()
+    val uiEvents = _uiEvents.receiveAsFlow()
 
     private val _addEditSimpleNote = mutableStateOf(SimpleNote(
         noteBookId = 0,
@@ -90,6 +96,22 @@ class SimpleNotesViewModel
             allSimpleNotes = allNotes,
             SimpleNotesFilter.FilterByPinned()
         )
+    }
+
+    fun submitSimpleNoteForm() {
+        if (_formTitleError.value == null && _formContentError.value == null) {
+            viewModelScope.launch {
+                createSimpleNoteCase(addEditSimpleNote.value)
+            }.invokeOnCompletion {
+                sendUiEvent(UiEvents.PopBackStack)
+            }
+        }
+    }
+
+    private fun sendUiEvent(event: UiEvents) {
+        viewModelScope.launch {
+            _uiEvents.send(event)
+        }
     }
 
 }
